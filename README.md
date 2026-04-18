@@ -27,7 +27,7 @@ Think Fantastical, but without the annual subscription. $14.99, once, forever.
 
 | | | |
 | :---: | :---: | :---: |
-| ![Main view](screenshots/hero-main.png) | ![Pomodoro](screenshots/pomodoro.png) | ![World Clock](screenshots/world-clock.png) |
+| ![Main view](site/screenshots/hero-main.png) | ![Pomodoro](site/screenshots/pomodoro.png) | ![World Clock](site/screenshots/world-clock.png) |
 | *Calendar & Timeline* | *Pomodoro Timer* | *World Clock* |
 
 ---
