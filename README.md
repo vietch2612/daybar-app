@@ -2,12 +2,13 @@
 
 # Daybar
 
-### Your calendar, tasks, and focus tools — one click away in the macOS menu bar
+### Your calendar, tasks, and focus tools — always one click away
 
-[![Download](https://img.shields.io/github/v/release/vietch2612/daybar-app?label=Download%20for%20macOS&logo=apple&color=black&style=for-the-badge)](https://github.com/vietch2612/daybar-app/releases/latest)
+[![Download](https://img.shields.io/github/v/release/vietch2612/daybar-app?label=Download&logo=apple&color=black&style=for-the-badge)](https://github.com/vietch2612/daybar-app/releases/latest)
 
 [![macOS 12+](https://img.shields.io/badge/macOS-12%2B-lightgrey?logo=apple)](https://daybar.app)
-[![Apple Silicon + Intel](https://img.shields.io/badge/Apple%20Silicon%20%2B%20Intel-supported-blue)](https://github.com/vietch2612/daybar-app/releases/latest)
+[![Windows 10+](https://img.shields.io/badge/Windows-10%2B%20Beta-blue?logo=windows)](https://github.com/vietch2612/daybar-app/releases/latest)
+[![Apple Silicon + Intel](https://img.shields.io/badge/Apple%20Silicon%20%2B%20Intel-supported-lightgrey)](https://github.com/vietch2612/daybar-app/releases/latest)
 [![License](https://img.shields.io/badge/license-Proprietary-orange)](https://daybar.app/privacy)
 
 [**daybar.app**](https://daybar.app) · [Releases](https://github.com/vietch2612/daybar-app/releases) · [Issues](https://github.com/vietch2612/daybar-app/issues) · [Privacy](https://daybar.app/privacy)
@@ -16,7 +17,7 @@
 
 ---
 
-Daybar is a lightweight macOS menu bar app that puts your **calendar, tasks, Pomodoro timer, and world clock** a single click away — without ever leaving what you're working on.
+Daybar is a lightweight **macOS and Windows** app that puts your **calendar, tasks, Pomodoro timer, and world clock** a single click away — without ever leaving what you're working on.
 
 Think Fantastical, but without the annual subscription. $14.99, once, forever.
 
@@ -101,10 +102,12 @@ Daybar has **no telemetry and no cloud backend**. Your calendar data never leave
 
 ---
 
-## System Requirements
+## Download
 
-- macOS 12 Monterey or later
-- Apple Silicon (M1 and later) and Intel — both supported
+| Platform | Requirement | Status |
+| :--- | :--- | :---: |
+| **macOS** | macOS 12 Monterey+, Apple Silicon or Intel | ✅ Available |
+| **Windows** | Windows 10+ (x64) | 🧪 Beta |
 
 [**Download the latest release →**](https://github.com/vietch2612/daybar-app/releases/latest)
 
@@ -129,7 +132,7 @@ Daybar has **no telemetry and no cloud backend**. Your calendar data never leave
 - [ ] Week view with time-block layout
 - [ ] Event write-back to all calendar providers
 - [ ] macOS Notification Center widgets
-- [ ] Windows support
+- [ ] Windows: full feature parity with macOS
 
 Have a feature request? [Open an issue →](https://github.com/vietch2612/daybar-app/issues)
 
