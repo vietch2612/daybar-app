@@ -1,12 +1,13 @@
 // ── DMG download proxy ──────────────────────────────────────────────────────
-// Fetches the latest GitHub release from the private repo and redirects the
-// user to a temporary pre-signed download URL that works without auth.
+// Fetches the latest GitHub release and redirects to the DMG download URL.
 //
 // Usage:
-//   /download/arm64   →  latest arm64 DMG
-//   /download/x64     →  latest x64 (Intel) DMG
+//   /download/arm64   →  latest arm64 DMG (Apple Silicon)
+//   /download/x64     →  latest x64 DMG (Intel)
 //
-// Requires GITHUB_TOKEN env var in Netlify with `repo` scope.
+// GITHUB_TOKEN is used only for the releases/latest API call (rate limiting).
+// The actual download uses browser_download_url — a public URL that needs no
+// auth — avoiding issues with tokens scoped to other repos.
 // ─────────────────────────────────────────────────────────────────────────────
 
 const REPO = 'vietch2612/daybar-app';
@@ -15,21 +16,17 @@ exports.handler = async (event) => {
   const arch = (event.path || '').includes('x64') ? 'x64' : 'arm64';
   const token = process.env.GITHUB_TOKEN;
 
-  if (!token) {
-    return { statusCode: 500, body: 'Server misconfigured — missing GITHUB_TOKEN' };
-  }
-
   try {
     // 1. Get the latest release metadata
+    const headers = {
+      Accept: 'application/vnd.github+json',
+      'User-Agent': 'daybar-website',
+    };
+    if (token) headers.Authorization = `token ${token}`;
+
     const releaseRes = await fetch(
       `https://api.github.com/repos/${REPO}/releases/latest`,
-      {
-        headers: {
-          Authorization: `token ${token}`,
-          Accept: 'application/vnd.github+json',
-          'User-Agent': 'daybar-website',
-        },
-      }
+      { headers }
     );
 
     if (!releaseRes.ok) {
@@ -42,7 +39,7 @@ exports.handler = async (event) => {
     const asset = release.assets.find((a) => {
       if (!a.name.endsWith('.dmg')) return false;
       if (arch === 'arm64') return a.name.includes('arm64');
-      // x64 build: the DMG without "arm64" in its name
+      // x64: DMG without "arm64" in the name
       return !a.name.includes('arm64');
     });
 
@@ -50,28 +47,12 @@ exports.handler = async (event) => {
       return { statusCode: 404, body: `No ${arch} DMG found in release ${release.tag_name}` };
     }
 
-    // 3. Request the asset binary — GitHub responds with a 302 to a
-    //    temporary pre-signed S3 URL that works without authentication.
-    const assetRes = await fetch(asset.url, {
-      headers: {
-        Authorization: `token ${token}`,
-        Accept: 'application/octet-stream',
-        'User-Agent': 'daybar-website',
-      },
-      redirect: 'manual',
-    });
-
-    const downloadUrl = assetRes.headers.get('location');
-
-    if (!downloadUrl) {
-      return { statusCode: 502, body: 'GitHub did not return a download redirect' };
-    }
-
-    // 4. Redirect the user to the pre-signed URL — their browser downloads
-    //    the DMG directly from GitHub's CDN, no auth needed.
+    // 3. Redirect directly to the public browser_download_url.
+    //    This is the same URL shown on the GitHub releases page — no auth
+    //    needed, works regardless of which repo the GITHUB_TOKEN is scoped to.
     return {
       statusCode: 302,
-      headers: { Location: downloadUrl },
+      headers: { Location: asset.browser_download_url },
     };
   } catch (err) {
     return { statusCode: 500, body: `Download error: ${err.message}` };
