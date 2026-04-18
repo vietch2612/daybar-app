@@ -24,21 +24,10 @@ Think Fantastical, but without the annual subscription. $14.99, once, forever.
 
 ## Screenshots
 
-<div align="center">
-
-![Daybar main view](screenshots/hero-main.png)
-
-</div>
-
-| Pomodoro Focus Timer | World Clock |
-| :---: | :---: |
-| ![Focus Timer](screenshots/pomodoro.png) | ![World Clock](screenshots/world-clock.png) |
-| *25/5 sessions tied to your tasks* | *Interactive cross-timezone scrubber* |
-
-| Light Theme | Pro Upgrade |
-| :---: | :---: |
-| ![Light Theme](screenshots/theme-light.png) | ![Pro Sheet](screenshots/pro-sheet.png) |
-| *Adapts to macOS Light / Dark mode* | *One-time purchase, no subscription* |
+| | | |
+| :---: | :---: | :---: |
+| ![Main view](screenshots/hero-main.png) | ![Pomodoro](screenshots/pomodoro.png) | ![World Clock](screenshots/world-clock.png) |
+| *Calendar & Timeline* | *Pomodoro Timer* | *World Clock* |
 
 ---
 
