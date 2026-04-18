@@ -8,6 +8,20 @@ Daybar is a lightweight macOS menu bar app that unifies your calendar, tasks, an
 
 ---
 
+## ✨ Visual Tour
+
+| **Unified Timeline** | **Focus & Tasks** |
+| :---: | :---: |
+| ![Unified Timeline](screenshots/hero-main.png) | ![Focus Timer](screenshots/pomodoro.png) |
+| *Events & Tasks in one view* | *Integrated Pomodoro Timer* |
+
+| **World Clock** | **Light Theme** |
+| :---: | :---: |
+| ![World Clock Scrubber](screenshots/world-clock.png) | ![Light Theme](screenshots/theme-light.png) |
+| *Global time scrubber* | *System-matched aesthetics* |
+
+---
+
 ## ⚡️ Key Features
 
 ### 📅 Unified Timeline
