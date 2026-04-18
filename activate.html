@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Activate Daybar Pro</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #080c10;
+      --text: #f0f6fc;
+      --muted: #8b949e;
+      --accent: #f0883e;
+      --accent-dim: rgba(240, 136, 62, 0.1);
+      --border: rgba(255, 255, 255, 0.1);
+    }
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+      padding: 2rem;
+    }
+    .card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      padding: 3rem;
+      border-radius: 24px;
+      max-width: 480px;
+      width: 100%;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    }
+    .icon-box {
+      width: 64px;
+      height: 64px;
+      background: var(--accent-dim);
+      border: 1px solid rgba(240, 136, 62, 0.2);
+      border-radius: 16px;
+      margin: 0 auto 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    h1 { font-size: 1.5rem; font-weight: 800; margin: 0 0 0.5rem; }
+    p { color: var(--muted); font-size: 0.93rem; margin: 0 0 2rem; line-height: 1.6; }
+    .key-box {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      padding: 0.75rem 1rem;
+      border-radius: 12px;
+      font-family: monospace;
+      font-size: 1rem;
+      color: var(--accent);
+      margin-bottom: 2rem;
+      display: inline-block;
+      letter-spacing: 0.05em;
+    }
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--accent);
+      color: #000;
+      text-decoration: none;
+      padding: 0.85rem 2rem;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 1rem;
+      width: 100%;
+      box-sizing: border-box;
+      transition: transform 0.2s, filter 0.2s;
+    }
+    .btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
+    .footer { margin-top: 2rem; font-size: 0.8rem; color: var(--muted); }
+    .footer a { color: var(--accent); text-decoration: none; }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <div class="icon-box">
+      <img src="favicon.svg" width="32" height="32" alt="Logo" />
+    </div>
+    <h1>Ready to Activate?</h1>
+    <p>We've found your license key. Click the button below to open Daybar and unlock your Pro features instantly.</p>
+    
+    <div id="key-display" class="key-box">Loading your key…</div>
+
+    <a href="#" id="activate-btn" class="btn">Open Daybar & Activate</a>
+    
+    <div class="footer">
+      Already activated? You can close this window. <br>
+      Need help? <a href="mailto:support@daybar.app">Email Support</a>
+    </div>
+  </div>
+
+  <script>
+    // 1. Get params
+    const params = new URLSearchParams(window.location.search);
+    const key = params.get('key');
+    const display = document.getElementById('key-display');
+    const btn = document.getElementById('activate-btn');
+
+    if (key) {
+      display.textContent = key;
+      const deepLink = `daybar://activate?key=${encodeURIComponent(key)}`;
+      btn.href = deepLink;
+
+      // 2. Auto-trigger after 1.5 seconds so user has time to see what's happening
+      setTimeout(() => {
+        window.location.href = deepLink;
+      }, 1500);
+    } else {
+      display.textContent = 'No key found';
+      btn.textContent = 'Open Daybar';
+      btn.href = 'daybar://activate';
+    }
+  </script>
+</body>
+</html>

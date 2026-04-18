@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Daybar - Thank You for Downloading</title>
+  <meta name="description" content="The ultimate minimal macOS menu bar calendar. Sync Google, Outlook, and iCloud. Join meetings in one click. No subscriptions—just $14.99 for life." />
+  <meta property="og:title" content="Daybar - macOS Menu Bar Calendar" />
+  <meta property="og:description" content="The ultimate minimal macOS menu bar calendar. Sync Google, Outlook, and iCloud. Join meetings in one click. No subscriptions—just $14.99 for life." />
+  <meta property="og:image" content="https://daybar.app/og.svg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://daybar.app/og.svg" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── Reset & Base ──────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --page-bg:      #080c10;
+      --surface:      rgba(255,255,255,0.04);
+      --surface-b:    rgba(255,255,255,0.07);
+      --border:       rgba(255,255,255,0.07);
+      --border-b:     rgba(255,255,255,0.14);
+      --text:         #c9d1d9;
+      --text-h:       #f0f6fc;
+      --muted:        rgba(201,209,217,0.5);
+      --accent:       #f0883e;
+      --accent-dim:   rgba(240,136,62,0.12);
+      --accent-glow:  rgba(240,136,62,0.3);
+      --green:        #3ddbd9;
+      --page-width:   72rem;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: Inter, sans-serif; background: var(--page-bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+    h1, h2, h3, h4 { font-weight: 700; color: var(--text-h); line-height: 1.2; }
+    a { color: var(--accent); text-decoration: none; transition: opacity 0.2s; }
+    a:hover { opacity: 0.75; }
+
+    .page { max-width: var(--page-width); margin: 0 auto; padding: 0 2rem; }
+
+    /* ─── Badges ──────────────────────────────────────────────────────── */
+    .badge {
+      display: inline-block;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.15em 0.5em;
+      border-radius: 4px;
+      vertical-align: middle;
+      margin-left: 0.35rem;
+      line-height: 1.6;
+    }
+    .badge-pro  { background: var(--accent-dim); color: var(--accent); border: 1px solid rgba(240,136,62,0.3); }
+    .badge-free { background: rgba(61,219,217,0.1); color: var(--green); border: 1px solid rgba(61,219,217,0.25); }
+
+    /* ─── Header ──────────────────────────────────────────────────────── */
+    header {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0.85rem 2rem;
+      border-bottom: 1px solid var(--border);
+      background: rgba(8,12,16,0.85);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    }
+
+    .logo {
+      font-size: 1.2rem; font-weight: 700; color: var(--text-h);
+      display: flex; align-items: center; gap: 0.5rem; letter-spacing: -0.02em;
+    }
+
+    /* ─── Hero ──────────────────────────────────────────────────────────── */
+    .hero {
+      padding: 6rem 2rem 4rem;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; top: -100px; left: 50%; transform: translateX(-50%);
+      width: 800px; height: 500px;
+      background: radial-gradient(ellipse, rgba(240,136,62,0.11) 0%, transparent 68%);
+      pointer-events: none;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.4rem, 4.5vw, 3.5rem); font-weight: 800; letter-spacing: -0.03em;
+      margin-bottom: 1.2rem;
+      background: linear-gradient(155deg, var(--text-h) 45%, var(--accent) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+
+    .hero-sub {
+      font-size: 1.05rem; color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .setup-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 16px; padding: 2.5rem; max-width: 600px;
+      margin: 2.5rem auto 0; text-align: left;
+    }
+
+    .setup-card h3 {
+      font-size: 1.2rem; margin-bottom: 1.5rem;
+    }
+
+    .setup-step {
+      display: flex; gap: 1rem; margin-bottom: 1.5rem;
+    }
+
+    .setup-step:last-child {
+      margin-bottom: 0;
+    }
+
+    .step-num {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: var(--accent-dim); color: var(--accent);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.85rem; font-weight: 700; flex-shrink: 0;
+    }
+
+    .step-content strong {
+      display: block; color: var(--text-h); font-size: 0.95rem; font-weight: 600;
+      margin-bottom: 0.2rem;
+    }
+
+    .step-content p {
+      color: var(--muted); font-size: 0.85rem; line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <a href="index.html" style="color:inherit; text-decoration:none; display:flex; align-items:center; gap: 0.5rem;">
+      <img src="favicon.svg" width="24" height="24" alt="Daybar Logo" />
+      Daybar
+    </a>
+  </div>
+</header>
+
+<section class="hero" style="text-align: center; min-height: 80vh;">
+   <h1>Thank you for downloading!</h1>
+   <p class="hero-sub" style="margin:0 auto; max-width: 500px;">
+     Your download should start automatically within a few seconds. <br/>
+     If it doesn't, <a id="manual-dl" href="#">click here to download manually</a>.
+   </p>
+   
+   <div class="setup-card">
+     <h3>Installation Steps</h3>
+
+     <div class="setup-step">
+       <div class="step-num">1</div>
+       <div class="step-content">
+         <strong>Open the DMG &amp; Drag to Applications</strong>
+         <p>Double-click the downloaded <code>.dmg</code> file and drag the Daybar icon into the Applications folder alias.</p>
+       </div>
+     </div>
+
+     <div class="setup-step">
+       <div class="step-num">2</div>
+       <div class="step-content">
+         <strong>Launch Daybar</strong>
+         <p>Open Daybar from your Launchpad or Applications folder. Since it's a new download, macOS may ask you to confirm opening it safely.</p>
+       </div>
+     </div>
+
+     <div class="setup-step">
+       <div class="step-num">3</div>
+       <div class="step-content">
+         <strong>Reclaim your menu bar</strong>
+         <p>Click the Daybar icon in your macOS menu bar at the top right of your screen. Your 7-Day Pro Trial is automatically active!</p>
+       </div>
+     </div>
+
+   </div>
+</section>
+
+<script>
+  window.onload = function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const dmgUrl = urlParams.get('dmg') || '/download/arm64';
+    
+    document.getElementById('manual-dl').href = dmgUrl;
+
+    // Trigger download automatically
+    setTimeout(() => {
+      window.location.href = dmgUrl;
+    }, 1500);
+  }
+</script>
+
+</body>
+</html>

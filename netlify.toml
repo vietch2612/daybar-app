@@ -1,0 +1,34 @@
+[build]
+  publish   = "."
+  functions = "netlify/functions"
+
+[functions]
+  node_bundler = "esbuild"
+
+# ── Download proxy — serves DMGs from private GitHub releases ──
+[[redirects]]
+  from   = "/download/arm64"
+  to     = "/.netlify/functions/download"
+  status = 200
+
+[[redirects]]
+  from   = "/download/x64"
+  to     = "/.netlify/functions/download"
+  status = 200
+
+[[redirects]]
+  from   = "/download"
+  to     = "/.netlify/functions/download"
+  status = 200
+
+# ── Microsoft identity verification ──────────────────────────────────────────
+[[headers]]
+  for = "/.well-known/microsoft-identity-association.json"
+  [headers.values]
+    Content-Type = "application/json"
+
+# ── Auto-update proxy — serves latest-mac.yml + ZIPs from private releases ──
+[[redirects]]
+  from   = "/update/*"
+  to     = "/.netlify/functions/update"
+  status = 200

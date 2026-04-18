@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Documentation & FAQ - Daybar</title>
+  <meta name="description" content="Daybar documentation, setup guides, feature reference, and frequently asked questions. Everything you need to get started with Daybar for macOS." />
+  <meta property="og:title" content="Daybar Docs & FAQ" />
+  <meta property="og:description" content="Setup guides, feature reference, and frequently asked questions for Daybar — the macOS menu bar calendar." />
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="0cef9502-2177-4ade-8b63-9b13c53ff187"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --page-bg:    #080c10;
+      --surface:    rgba(255,255,255,0.04);
+      --surface-b:  rgba(255,255,255,0.07);
+      --border:     rgba(255,255,255,0.07);
+      --border-b:   rgba(255,255,255,0.14);
+      --text:       #c9d1d9;
+      --text-h:     #f0f6fc;
+      --muted:      rgba(201,209,217,0.5);
+      --accent:     #f0883e;
+      --accent-dim: rgba(240,136,62,0.10);
+      --green:      #3ddbd9;
+      --page-width: 52rem;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: Inter, sans-serif; background: var(--page-bg); color: var(--text); line-height: 1.75; -webkit-font-smoothing: antialiased; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    code { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 0.85em; background: var(--surface-b); padding: 0.15em 0.4em; border-radius: 4px; color: var(--text-h); }
+
+    /* ── Nav ── */
+    .site-nav {
+      position: sticky; top: 0; z-index: 100;
+      border-bottom: 1px solid var(--border);
+      background: rgba(8,12,16,0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+    .nav-inner {
+      max-width: 72rem; margin: 0 auto; padding: 0 2rem;
+      height: 56px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 0.5rem; font-weight: 700; font-size: 1rem; color: var(--text-h); text-decoration: none; }
+    .nav-logo:hover { text-decoration: none; }
+    .nav-logo svg { width: 24px; height: 24px; }
+    .nav-back { font-size: 0.82rem; color: var(--muted); display: flex; align-items: center; gap: 0.35rem; }
+    .nav-back:hover { color: var(--accent); text-decoration: none; }
+
+    /* ── Hero ── */
+    .hero {
+      padding: 4rem 2rem 3rem;
+      max-width: var(--page-width); margin: 0 auto;
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-tag {
+      display: inline-block; margin-bottom: 1rem;
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--accent); background: var(--accent-dim);
+      padding: 0.3rem 0.75rem; border-radius: 99px;
+      border: 1px solid rgba(240,136,62,0.2);
+    }
+    .hero h1 { font-size: clamp(1.75rem, 4vw, 2.5rem); color: var(--text-h); margin-bottom: 0.75rem; font-weight: 700; line-height: 1.2; }
+    .hero-sub { font-size: 0.95rem; color: var(--muted); max-width: 520px; line-height: 1.7; }
+
+    /* ── Content ── */
+    .content { max-width: var(--page-width); margin: 0 auto; padding: 3rem 2rem 5rem; }
+
+    .toc {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem 2rem;
+      margin-bottom: 3rem;
+    }
+    .toc h2 { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 0.75rem; font-weight: 600; line-height: 1.2; }
+    .toc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.25rem 2rem; }
+    .toc a { color: var(--text); font-size: 0.88rem; display: block; padding: 0.2rem 0; }
+    .toc a:hover { color: var(--accent); text-decoration: none; }
+    .toc .toc-num { display: inline-block; width: 1.5rem; color: var(--muted); font-size: 0.82rem; }
+    @media (max-width: 600px) { .toc-grid { grid-template-columns: 1fr; } }
+
+    section { margin-bottom: 3rem; }
+    section h2 {
+      font-size: 1.2rem; color: var(--text-h); margin-bottom: 1rem; font-weight: 700; line-height: 1.2;
+      padding-bottom: 0.5rem; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    section h2 .num {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 24px; height: 24px; border-radius: 6px;
+      background: var(--accent-dim); color: var(--accent);
+      font-size: 0.72rem; font-weight: 700; flex-shrink: 0;
+    }
+    section h3 { font-size: 1rem; color: var(--text-h); margin: 1.5rem 0 0.5rem; font-weight: 600; line-height: 1.3; }
+    section p { margin-bottom: 0.85rem; font-size: 0.95rem; }
+    section ul, section ol { padding-left: 1.5rem; margin-bottom: 0.85rem; }
+    section ul li, section ol li { font-size: 0.95rem; margin-bottom: 0.4rem; }
+
+    .callout {
+      display: flex; gap: 0.85rem; align-items: flex-start;
+      background: var(--accent-dim);
+      border: 1px solid rgba(240,136,62,0.2);
+      border-radius: 10px; padding: 1rem 1.25rem; margin-bottom: 1.5rem;
+    }
+    .callout-icon { font-size: 1.1rem; line-height: 1; margin-top: 0.1rem; flex-shrink: 0; }
+    .callout p { margin: 0; font-size: 0.9rem; }
+    .callout strong { color: var(--text-h); }
+
+    .callout-info {
+      background: rgba(61,219,217,0.06);
+      border-color: rgba(61,219,217,0.15);
+    }
+
+    /* Steps */
+    .steps { counter-reset: step; padding-left: 0; list-style: none; margin-bottom: 1rem; }
+    .steps li {
+      counter-increment: step;
+      position: relative; padding-left: 2.25rem; margin-bottom: 0.75rem; font-size: 0.95rem;
+    }
+    .steps li::before {
+      content: counter(step);
+      position: absolute; left: 0; top: 0.1em;
+      width: 22px; height: 22px; border-radius: 6px;
+      background: var(--accent-dim); color: var(--accent);
+      font-size: 0.72rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    /* Keyboard shortcut badges */
+    kbd {
+      display: inline-block;
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 0.78rem; font-weight: 500;
+      background: var(--surface-b); color: var(--text-h);
+      border: 1px solid var(--border-b); border-radius: 5px;
+      padding: 0.1em 0.45em; line-height: 1.5;
+      box-shadow: 0 1px 0 rgba(255,255,255,0.04);
+    }
+
+    /* Shortcut table */
+    .shortcut-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; margin-bottom: 1.25rem; }
+    .shortcut-table td { padding: 0.55rem 0; border-bottom: 1px solid var(--border); }
+    .shortcut-table td:first-child { color: var(--text); }
+    .shortcut-table td:last-child { text-align: right; }
+
+    /* Feature cards */
+    .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 1.25rem; }
+    .feature-card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+      padding: 1rem 1.15rem;
+    }
+    .feature-card h4 { font-size: 0.88rem; color: var(--text-h); margin-bottom: 0.3rem; font-weight: 600; line-height: 1.3; }
+    .feature-card p { font-size: 0.82rem; color: var(--muted); margin: 0; line-height: 1.55; }
+    @media (max-width: 600px) { .feature-grid { grid-template-columns: 1fr; } }
+
+    /* Badge */
+    .badge { display: inline-block; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 0.15em 0.5em; border-radius: 4px; vertical-align: middle; margin-left: 0.3rem; line-height: 1.6; }
+    .badge-pro { background: var(--accent-dim); color: var(--accent); border: 1px solid rgba(240,136,62,0.3); }
+    .badge-free { background: rgba(61,219,217,0.1); color: var(--green); border: 1px solid rgba(61,219,217,0.25); }
+
+    /* FAQ accordion */
+    details { border-bottom: 1px solid var(--border); }
+    details summary {
+      cursor: pointer; padding: 0.85rem 0; font-size: 0.95rem; font-weight: 500; color: var(--text-h);
+      list-style: none; display: flex; align-items: center; justify-content: space-between;
+    }
+    details summary::-webkit-details-marker { display: none; }
+    details summary::after {
+      content: '+'; font-size: 1.1rem; color: var(--muted); font-weight: 300; flex-shrink: 0; margin-left: 1rem;
+      transition: transform 0.2s;
+    }
+    details[open] summary::after { content: '\2212'; }
+    details .answer { padding: 0 0 1rem; font-size: 0.9rem; color: var(--text); }
+    details .answer p { margin-bottom: 0.5rem; }
+    details .answer p:last-child { margin-bottom: 0; }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem;
+    }
+    .foot-inner {
+      max-width: var(--page-width); margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+    }
+    .foot-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+    .foot-links a { font-size: 0.82rem; color: var(--muted); }
+    .foot-links a:hover { color: var(--accent); text-decoration: none; }
+    .foot-copy { font-size: 0.78rem; color: var(--muted); }
+  </style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="../index.html">
+      <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="28" height="28" rx="7" fill="#f0883e"/>
+        <rect x="6" y="6" width="7" height="7" rx="1.5" fill="white"/>
+        <rect x="15" y="6" width="7" height="7" rx="1.5" fill="white" opacity="0.6"/>
+        <rect x="6" y="15" width="7" height="7" rx="1.5" fill="white" opacity="0.6"/>
+        <rect x="15" y="15" width="7" height="7" rx="1.5" fill="white" opacity="0.3"/>
+      </svg>
+      Daybar
+    </a>
+    <a class="nav-back" href="../index.html">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Back to home
+    </a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-tag">Documentation</div>
+  <h1>Docs & FAQ</h1>
+  <p class="hero-sub">Everything you need to set up Daybar, connect your calendars, and get the most out of every feature.</p>
+</div>
+
+<div class="content">
+
+  <!-- ── Table of Contents ── -->
+  <div class="toc">
+    <h2>Contents</h2>
+    <div class="toc-grid">
+      <div>
+        <a href="#s1"><span class="toc-num">1.</span> Getting Started</a>
+        <a href="#s2"><span class="toc-num">2.</span> Connecting Calendars</a>
+        <a href="#s3"><span class="toc-num">3.</span> Calendar View</a>
+        <a href="#s4"><span class="toc-num">4.</span> Tasks & Reminders</a>
+        <a href="#s5"><span class="toc-num">5.</span> World Clock</a>
+      </div>
+      <div>
+        <a href="#s6"><span class="toc-num">6.</span> Menu Bar Customization</a>
+        <a href="#s7"><span class="toc-num">7.</span> Themes & Appearance</a>
+        <a href="#s8"><span class="toc-num">8.</span> Focus Timer (Pomodoro)</a>
+        <a href="#s9"><span class="toc-num">9.</span> Daybar Pro</a>
+        <a href="#s10"><span class="toc-num">10.</span> FAQ & Troubleshooting</a>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ── 1. Getting Started ── -->
+  <section id="s1">
+    <h2><span class="num">1</span> Getting Started</h2>
+
+    <h3>Installation</h3>
+    <ol class="steps">
+      <li>Download the latest <code>.dmg</code> file from <a href="../index.html">daybar.app</a>.</li>
+      <li>Open the <code>.dmg</code> and drag <strong>Daybar</strong> into your Applications folder.</li>
+      <li>Launch Daybar from Applications. macOS may ask you to confirm since the app is downloaded from the internet &mdash; click <strong>Open</strong>.</li>
+      <li>Daybar appears as an icon in your menu bar. Click it to open the popup.</li>
+    </ol>
+
+    <div class="callout callout-info">
+      <span class="callout-icon">&#x1f4a1;</span>
+      <p><strong>Tip:</strong> If your Mac has a notch, the menu bar icon may be hidden behind it. You can drag other menu bar icons to make room, or use a tool like Bartender to manage menu bar space.</p>
+    </div>
+
+    <h3>Launch at Login</h3>
+    <p>To have Daybar start automatically when you log in, open <strong>Settings &rarr; General</strong> and enable <strong>Launch at Login</strong>.</p>
+  </section>
+
+
+  <!-- ── 2. Connecting Calendars ── -->
+  <section id="s2">
+    <h2><span class="num">2</span> Connecting Calendars</h2>
+    <p>Daybar connects directly to your calendar providers from your Mac. No data is routed through Daybar servers. See our <a href="../privacy.html">Privacy Policy</a> for details.</p>
+
+    <h3>Google Calendar <span class="badge badge-pro">Pro</span></h3>
+    <ol class="steps">
+      <li>Open <strong>Settings &rarr; Accounts</strong>.</li>
+      <li>Click <strong>Connect Google Calendar</strong>.</li>
+      <li>Sign in with your Google account and grant Daybar access.</li>
+      <li>Your events appear immediately in the calendar and timeline.</li>
+    </ol>
+    <p>Pro users can connect <strong>multiple Google accounts</strong> by clicking <strong>Add another account</strong>. Each account is shown with its own color indicator.</p>
+
+    <h3>Microsoft / Outlook <span class="badge badge-pro">Pro</span></h3>
+    <ol class="steps">
+      <li>Open <strong>Settings &rarr; Accounts</strong>.</li>
+      <li>Click <strong>Connect Microsoft / Outlook</strong>.</li>
+      <li>Sign in with your Microsoft account (personal, work, or school).</li>
+    </ol>
+    <p>Daybar uses the secure PKCE OAuth flow &mdash; no client secret is stored on your device.</p>
+
+    <h3>Apple Calendar & Reminders <span class="badge badge-pro">Pro</span></h3>
+    <ol class="steps">
+      <li>Open <strong>Settings &rarr; Accounts</strong>.</li>
+      <li>Click <strong>Enable Apple Calendar & Reminders</strong>.</li>
+      <li>macOS will prompt you to grant calendar access &mdash; click <strong>Allow</strong>.</li>
+    </ol>
+    <p>Apple Calendar data never leaves your device. Daybar reads events and reminders via macOS native APIs (EventKit).</p>
+
+    <h3>Revoking Access</h3>
+    <p>To disconnect a calendar account, go to <strong>Settings &rarr; Accounts</strong> and click <strong>Remove</strong> next to the account. You can also revoke access directly from your <a href="https://myaccount.google.com/permissions" target="_blank" rel="noopener">Google</a> or <a href="https://account.microsoft.com/privacy" target="_blank" rel="noopener">Microsoft</a> account security settings.</p>
+  </section>
+
+
+  <!-- ── 3. Calendar View ── -->
+  <section id="s3">
+    <h2><span class="num">3</span> Calendar View</h2>
+    <p>The main popup shows a month calendar at the top with your events listed below in a unified timeline.</p>
+
+    <div class="feature-grid">
+      <div class="feature-card">
+        <h4>Month & Week Views</h4>
+        <p>Switch between month and week views using the view toggle in the calendar header.</p>
+      </div>
+      <div class="feature-card">
+        <h4>Event Dots</h4>
+        <p>Days with events show colored dots. Toggle this in Settings &rarr; Calendar &rarr; Show event dots.</p>
+      </div>
+      <div class="feature-card">
+        <h4>Highlight Days</h4>
+        <p>Accent specific days of the week (e.g. weekends). Configurable in Settings &rarr; Calendar.</p>
+      </div>
+      <div class="feature-card">
+        <h4>Week Numbers</h4>
+        <p>Show ISO week numbers in the left column. Enable in Settings &rarr; Calendar &rarr; Show week numbers.</p>
+      </div>
+    </div>
+
+    <h3>Navigation</h3>
+    <ul>
+      <li>Click <strong>&lt;</strong> / <strong>&gt;</strong> to move between months (or weeks in week view).</li>
+      <li>Click <strong>Today</strong> to jump back to the current date.</li>
+      <li>Click any date to see its events in the timeline below.</li>
+    </ul>
+
+    <h3>Unified Timeline</h3>
+    <p>All events and tasks for the selected day appear in a single chronological list. Each entry shows the time, title, calendar source, and &mdash; if enabled &mdash; location. Timed events show the start time; all-day events and tasks appear at the top.</p>
+  </section>
+
+
+  <!-- ── 4. Tasks & Reminders ── -->
+  <section id="s4">
+    <h2><span class="num">4</span> Tasks & Reminders</h2>
+
+    <h3>Quick-Add Tasks <span class="badge badge-free">Free</span></h3>
+    <p>Click the <strong>+</strong> button in the timeline header to add a local task. Type a title and press Enter. Tasks are saved locally on your device.</p>
+
+    <h3>Natural Language Input <span class="badge badge-pro">Pro</span></h3>
+    <p>Daybar understands natural language dates and times. Try typing:</p>
+    <ul>
+      <li><code>Team standup tomorrow at 9am</code></li>
+      <li><code>Dentist next Tuesday 2:30pm</code></li>
+      <li><code>Submit report Friday</code></li>
+    </ul>
+    <p>Daybar parses the date/time automatically and creates the event at the right time.</p>
+
+    <h3>Apple Reminders <span class="badge badge-pro">Pro</span></h3>
+    <p>When Apple Calendar is connected, your Reminders also appear in the unified timeline. They show as checkable items with a "Reminder" label.</p>
+
+    <h3>Event Write-Back <span class="badge badge-pro">Pro</span></h3>
+    <p>Quick-added events can be synced back to your Google Calendar. When write-back is enabled, locally created events are pushed to your connected Google account.</p>
+  </section>
+
+
+  <!-- ── 5. World Clock ── -->
+  <section id="s5">
+    <h2><span class="num">5</span> World Clock</h2>
+    <p>The world clock panel shows the current time in multiple cities at a glance. Enable or disable it in <strong>Settings &rarr; General &rarr; World Clock</strong>.</p>
+
+    <h3>Adding & Removing Cities <span class="badge badge-pro">Pro</span></h3>
+    <p>Click the globe icon in the bottom toolbar to open the world clock panel. Pro users can customize which cities are displayed from a list of 30+ timezones spanning all major regions.</p>
+
+    <h3>Time Scrubber <span class="badge badge-free">Free</span></h3>
+    <p>Drag the time scrubber slider to preview what time it will be in all your cities at a future (or past) hour. This is useful for scheduling meetings across time zones.</p>
+  </section>
+
+
+  <!-- ── 6. Menu Bar Customization ── -->
+  <section id="s6">
+    <h2><span class="num">6</span> Menu Bar Customization</h2>
+    <p>Customize what Daybar shows in your macOS menu bar via <strong>Settings &rarr; Menu Bar</strong>. A live preview updates as you change settings.</p>
+
+    <h3>Icon Style</h3>
+    <p>Choose between three icon styles:</p>
+    <ul>
+      <li><strong>Calendar</strong> &mdash; a small calendar glyph</li>
+      <li><strong>Date</strong> &mdash; today's date number (e.g. "22")</li>
+      <li><strong>Dot</strong> &mdash; a minimal dot indicator</li>
+    </ul>
+    <p>You can also hide the icon entirely.</p>
+
+    <h3>Date & Time</h3>
+    <p>Optionally display the current date, day of week, and/or time next to the icon. Date format options: <strong>short</strong> (Mar 22), <strong>medium</strong> (3/22), or <strong>full</strong> (March 22). The time display follows the 24-hour setting in General.</p>
+
+    <h3>Meeting Countdown <span class="badge badge-pro">Pro</span></h3>
+    <p>When enabled, the menu bar text is replaced with a countdown to your next meeting (e.g. "Standup in 12m") when an event is upcoming. This helps you never miss a meeting.</p>
+
+    <h3>Fallback Text</h3>
+    <p>If you've hidden both the icon and date/time, you can set a short custom fallback string (up to 10 characters) to display instead.</p>
+  </section>
+
+
+  <!-- ── 7. Themes & Appearance ── -->
+  <section id="s7">
+    <h2><span class="num">7</span> Themes & Appearance</h2>
+    <p>Daybar ships with 4 built-in themes and 6 Pro themes. Switch themes in <strong>Settings &rarr; Appearance</strong>.</p>
+
+    <h3>Built-in Themes</h3>
+    <ul>
+      <li><strong>Auto</strong> &mdash; follows your macOS light/dark mode setting</li>
+      <li><strong>macOS</strong> &mdash; explicit macOS system appearance</li>
+      <li><strong>Light</strong> &mdash; forced light mode</li>
+      <li><strong>Dark</strong> &mdash; forced dark mode</li>
+    </ul>
+
+    <h3>Pro Themes <span class="badge badge-pro">Pro</span></h3>
+    <ul>
+      <li><strong>Midnight Dark</strong> &mdash; deep black with orange accents and JetBrains Mono font</li>
+      <li><strong>Nord</strong> &mdash; arctic blue-grey palette</li>
+      <li><strong>Dracula</strong> &mdash; purple-tinted dark theme</li>
+      <li><strong>Ros&eacute; Pine</strong> &mdash; soft muted pastels on dark</li>
+      <li><strong>Solarized</strong> &mdash; the classic Solarized Dark palette</li>
+      <li><strong>Tokyo Night</strong> &mdash; deep blue with vibrant highlights</li>
+    </ul>
+
+    <h3>Custom Accent Color <span class="badge badge-pro">Pro</span></h3>
+    <p>Pro users can override the default accent color with a preset from the accent color picker. Click any color swatch to apply it across the entire UI. Click <strong>Reset</strong> to revert to the theme default.</p>
+  </section>
+
+
+  <!-- ── 8. Focus Timer ── -->
+  <section id="s8">
+    <h2><span class="num">8</span> Focus Timer (Pomodoro) <span class="badge badge-pro">Pro</span></h2>
+    <p>Daybar includes a built-in Pomodoro focus timer to help you stay productive.</p>
+
+    <h3>How It Works</h3>
+    <ul>
+      <li><strong>Work session</strong> &mdash; 25 minutes of focused work</li>
+      <li><strong>Short break</strong> &mdash; 5 minutes between work sessions</li>
+      <li><strong>Long break</strong> &mdash; 15 minutes after 4 completed sessions</li>
+    </ul>
+    <p>The timer runs in your menu bar and shows remaining time. Click the timer icon in the bottom toolbar to open the Pomodoro panel.</p>
+
+    <h3>Linking Tasks</h3>
+    <p>You can start a Pomodoro session directly from a task in your timeline by clicking the <strong>Focus</strong> button. This links the timer to that specific task so you can track what you're working on.</p>
+
+    <h3>Caffeinate (Keep Awake) <span class="badge badge-free">Free</span></h3>
+    <p>Prevent your Mac from sleeping while you're focused. Click the coffee cup icon in the toolbar to enable caffeinate for 15 min, 30 min, 1 hr, 2 hrs, or 4 hrs. This uses the built-in macOS <code>caffeinate</code> command.</p>
+  </section>
+
+
+  <!-- ── 9. Daybar Pro ── -->
+  <section id="s9">
+    <h2><span class="num">9</span> Daybar Pro</h2>
+
+    <div class="callout">
+      <span class="callout-icon">&#x2728;</span>
+      <p><strong>One-time purchase, $14.99.</strong> No subscription. All future updates included. Buy once, use forever.</p>
+    </div>
+
+    <h3>What's Included</h3>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <h4>Multi-Account Sync</h4>
+        <p>Google Calendar, Microsoft Outlook, and Apple Calendar & Reminders.</p>
+      </div>
+      <div class="feature-card">
+        <h4>6 Pro Themes + Accent Picker</h4>
+        <p>Midnight Dark, Nord, Dracula, Ros&eacute; Pine, Solarized, Tokyo Night.</p>
+      </div>
+      <div class="feature-card">
+        <h4>Meeting Countdown</h4>
+        <p>See your next meeting countdown right in the menu bar.</p>
+      </div>
+      <div class="feature-card">
+        <h4>Focus Timer</h4>
+        <p>Built-in Pomodoro timer linked to your tasks.</p>
+      </div>
+      <div class="feature-card">
+        <h4>Smart Alerts</h4>
+        <p>Hard meeting alerts (30s flash warning) and daily agenda notifications.</p>
+      </div>
+      <div class="feature-card">
+        <h4>Natural Language Input</h4>
+        <p>Create events by typing "Lunch tomorrow at noon".</p>
+      </div>
+    </div>
+
+    <h3>Activating a License</h3>
+    <ol class="steps">
+      <li>Purchase Daybar Pro from <a href="https://daybar.lemonsqueezy.com/checkout/buy/a3356c2e-e712-4cae-8d3f-73c0c8dee60a" target="_blank" rel="noopener">the checkout page</a>.</li>
+      <li>You'll receive a license key via email in the format <code>DBP-XXXX-XXXX-XXXX-XXXX</code>.</li>
+      <li>Open <strong>Settings &rarr; Pro</strong>, paste your key, and click <strong>Activate</strong>.</li>
+      <li>All Pro features unlock immediately.</li>
+    </ol>
+
+    <h3>Deactivating / Transferring</h3>
+    <p>To move your license to another Mac, go to <strong>Settings &rarr; Pro</strong> and click <strong>Deactivate</strong> on your current device. Then activate on the new device with the same key.</p>
+  </section>
+
+
+  <!-- ── 10. FAQ & Troubleshooting ── -->
+  <section id="s10">
+    <h2><span class="num">10</span> FAQ & Troubleshooting</h2>
+
+    <details>
+      <summary>The menu bar icon is not visible / hidden behind the notch</summary>
+      <div class="answer">
+        <p>On MacBooks with a notch, macOS may hide third-party menu bar icons if the bar is full. Try these fixes:</p>
+        <ul>
+          <li>Quit other menu bar apps to free space.</li>
+          <li>Use a menu bar management tool like Bartender, Hidden Bar, or Ice.</li>
+          <li>In <strong>Settings &rarr; Menu Bar</strong>, switch to the minimal <strong>Dot</strong> icon style or hide the icon and use a short fallback text instead.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>Google Calendar events are not showing up</summary>
+      <div class="answer">
+        <p>Check the following:</p>
+        <ul>
+          <li>Ensure the account is connected in <strong>Settings &rarr; Accounts</strong> (look for the green dot).</li>
+          <li>Wait a few seconds after connecting &mdash; the initial sync may take a moment.</li>
+          <li>Check that you granted Daybar permission to read your calendar during the Google OAuth flow.</li>
+          <li>Try removing the account and reconnecting.</li>
+        </ul>
+        <p>If the issue persists, revoke Daybar's access at <a href="https://myaccount.google.com/permissions" target="_blank" rel="noopener">myaccount.google.com/permissions</a> and reconnect.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>macOS says "Daybar can't be opened because it is from an unidentified developer"</summary>
+      <div class="answer">
+        <p>Right-click (or Control-click) the app in Finder and select <strong>Open</strong>. macOS will show a dialog with an Open button. You only need to do this once.</p>
+        <p>Alternatively, go to <strong>System Settings &rarr; Privacy & Security</strong>, scroll down, and click <strong>Open Anyway</strong> next to the Daybar message.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>How do I switch to 24-hour time?</summary>
+      <div class="answer">
+        <p>Open <strong>Settings &rarr; General</strong> and enable <strong>24-hour time</strong>. This affects the timeline, world clock, and menu bar time display.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Can I use Daybar on multiple Macs?</summary>
+      <div class="answer">
+        <p>Your license key can be activated on one Mac at a time. To move it, deactivate on your current device (<strong>Settings &rarr; Pro &rarr; Deactivate</strong>), then activate on the new one. If you need multi-device support, contact <a href="mailto:support@daybar.app">support@daybar.app</a>.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Does Daybar collect my calendar data?</summary>
+      <div class="answer">
+        <p>No. Daybar communicates directly from your Mac to Google, Microsoft, or Apple servers. We never see your events, tasks, or contacts. OAuth tokens are encrypted in macOS Keychain. See our full <a href="../privacy.html">Privacy Policy</a>.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>How do I reset Daybar to default settings?</summary>
+      <div class="answer">
+        <p>Daybar stores all settings in <code>localStorage</code>. To reset everything:</p>
+        <ol>
+          <li>Quit Daybar.</li>
+          <li>Open Terminal and run:<br><code>defaults delete app.daybar.daybar</code></li>
+          <li>Relaunch Daybar.</li>
+        </ol>
+        <p>This clears all preferences, theme selections, and local tasks. Calendar connections (stored in Keychain) are preserved.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>The popup doesn't appear when I click the menu bar icon</summary>
+      <div class="answer">
+        <p>This can happen if the popup window lost focus. Try clicking the icon twice (once to dismiss any hidden window, once to reopen). If the issue persists, quit and relaunch Daybar.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>My license key says "invalid" but I just purchased it</summary>
+      <div class="answer">
+        <p>Double-check that you're entering the key exactly as received (format: <code>DBP-XXXX-XXXX-XXXX-XXXX</code>). The key is case-insensitive but must include the dashes. If your key was copy-pasted from an email, make sure no extra spaces were included. Contact <a href="mailto:support@daybar.app">support@daybar.app</a> with your order ID if the issue continues.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Can I use Daybar without a Pro license?</summary>
+      <div class="answer">
+        <p>Yes. The free version includes the calendar view, unified timeline, quick-add tasks, world clock with time scrubber, and caffeinate (keep-awake). Pro unlocks calendar integrations, themes, Pomodoro, alerts, and more.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ── Still need help? ── -->
+  <div class="callout">
+    <span class="callout-icon">&#x1f4ac;</span>
+    <p><strong>Still need help?</strong> Email us at <a href="mailto:support@daybar.app">support@daybar.app</a>. We typically respond within 24 hours on business days. Include your app version and a description of the issue for the fastest help.</p>
+  </div>
+
+</div>
+
+<footer>
+  <div class="foot-inner">
+    <div class="foot-links">
+      <a href="../index.html">Home</a>
+      <a href="https://github.com/vietch2612/chronosbar" target="_blank" rel="noopener">GitHub</a>
+      <a href="mailto:support@daybar.app">Support</a>
+      <a href="../privacy.html">Privacy Policy</a>
+      <a href="../terms.html">Terms of Service</a>
+    </div>
+    <span class="foot-copy">&copy; 2026 Daybar. All rights reserved.</span>
+  </div>
+</footer>
+
+</body>
+</html>

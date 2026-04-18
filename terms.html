@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Terms of Service - Daybar</title>
+  <meta name="description" content="Daybar Terms of Service. One-time purchase, 7-day refund guarantee, macOS only." />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="0cef9502-2177-4ade-8b63-9b13c53ff187"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --page-bg:    #080c10;
+      --surface:    rgba(255,255,255,0.04);
+      --border:     rgba(255,255,255,0.07);
+      --border-b:   rgba(255,255,255,0.14);
+      --text:       #c9d1d9;
+      --text-h:     #f0f6fc;
+      --muted:      rgba(201,209,217,0.5);
+      --accent:     #f0883e;
+      --accent-dim: rgba(240,136,62,0.10);
+      --green:      #3ddbd9;
+      --page-width: 52rem;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: Inter, sans-serif; background: var(--page-bg); color: var(--text); line-height: 1.75; -webkit-font-smoothing: antialiased; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Nav ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      border-bottom: 1px solid var(--border);
+      background: rgba(8,12,16,0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+    .nav-inner {
+      max-width: 72rem; margin: 0 auto; padding: 0 2rem;
+      height: 56px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 0.5rem; font-weight: 700; font-size: 1rem; color: var(--text-h); text-decoration: none; }
+    .nav-logo svg { width: 24px; height: 24px; }
+    .nav-back { font-size: 0.82rem; color: var(--muted); display: flex; align-items: center; gap: 0.35rem; }
+    .nav-back:hover { color: var(--accent); text-decoration: none; }
+
+    /* ── Hero ── */
+    .hero {
+      padding: 4rem 2rem 3rem;
+      max-width: var(--page-width); margin: 0 auto;
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-tag {
+      display: inline-block; margin-bottom: 1rem;
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--accent); background: var(--accent-dim);
+      padding: 0.3rem 0.75rem; border-radius: 99px;
+      border: 1px solid rgba(240,136,62,0.2);
+    }
+    .hero h1 { font-size: clamp(1.75rem, 4vw, 2.5rem); color: var(--text-h); margin-bottom: 0.75rem; }
+    .hero-meta { font-size: 0.82rem; color: var(--muted); }
+
+    /* ── Content ── */
+    .content { max-width: var(--page-width); margin: 0 auto; padding: 3rem 2rem 5rem; }
+
+    .toc {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem 2rem;
+      margin-bottom: 3rem;
+    }
+    .toc h2 { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 0.75rem; font-weight: 600; }
+    .toc ol { padding-left: 1.25rem; }
+    .toc li { font-size: 0.88rem; margin-bottom: 0.35rem; }
+    .toc a { color: var(--text); }
+    .toc a:hover { color: var(--accent); }
+
+    section { margin-bottom: 3rem; }
+    section h2 {
+      font-size: 1.2rem; color: var(--text-h); margin-bottom: 1rem;
+      padding-bottom: 0.5rem; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    section h2 .num {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 24px; height: 24px; border-radius: 6px;
+      background: var(--accent-dim); color: var(--accent);
+      font-size: 0.72rem; font-weight: 700; flex-shrink: 0;
+    }
+    section p { margin-bottom: 0.85rem; font-size: 0.95rem; }
+    section ul, section ol { padding-left: 1.5rem; margin-bottom: 0.85rem; }
+    section li { font-size: 0.95rem; margin-bottom: 0.4rem; }
+
+    .callout {
+      display: flex; gap: 0.85rem; align-items: flex-start;
+      background: var(--accent-dim);
+      border: 1px solid rgba(240,136,62,0.2);
+      border-radius: 10px; padding: 1rem 1.25rem; margin-bottom: 1.5rem;
+    }
+    .callout-icon { font-size: 1.1rem; line-height: 1; margin-top: 0.1rem; flex-shrink: 0; }
+    .callout p { margin: 0; font-size: 0.9rem; }
+    .callout strong { color: var(--text-h); }
+
+    .callout-green {
+      background: rgba(61,219,217,0.08);
+      border-color: rgba(61,219,217,0.25);
+    }
+
+    .key-terms {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    @media (max-width: 600px) { .key-terms { grid-template-columns: 1fr; } }
+    .key-term {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px; padding: 1rem 1.25rem;
+    }
+    .key-term strong { display: block; color: var(--text-h); margin-bottom: 0.25rem; font-size: 0.88rem; }
+    .key-term span { font-size: 0.82rem; color: var(--muted); }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem;
+    }
+    .foot-inner {
+      max-width: var(--page-width); margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+    }
+    .foot-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+    .foot-links a { font-size: 0.82rem; color: var(--muted); }
+    .foot-links a:hover { color: var(--accent); text-decoration: none; }
+    .foot-copy { font-size: 0.78rem; color: var(--muted); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="index.html">
+      <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="28" height="28" rx="7" fill="#f0883e"/>
+        <rect x="6" y="6" width="7" height="7" rx="1.5" fill="white"/>
+        <rect x="15" y="6" width="7" height="7" rx="1.5" fill="white" opacity="0.6"/>
+        <rect x="6" y="15" width="7" height="7" rx="1.5" fill="white" opacity="0.6"/>
+        <rect x="15" y="15" width="7" height="7" rx="1.5" fill="white" opacity="0.3"/>
+      </svg>
+      Daybar
+    </a>
+    <a class="nav-back" href="index.html">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Back to home
+    </a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-tag">Legal</div>
+  <h1>Terms of Service</h1>
+  <p class="hero-meta">Effective date: March 21, 2026 &nbsp;&middot;&nbsp; Last updated: March 21, 2026</p>
+</div>
+
+<div class="content">
+
+  <div class="callout callout-green">
+    <span class="callout-icon">✅</span>
+    <p><strong>Plain English summary:</strong> Pay once, own it forever. Use it on up to 5 Macs. 7-day money-back guarantee, no questions asked. macOS Apple Silicon only. We are not responsible if the app fails to sync a meeting - always check your calendar directly for critical events.</p>
+  </div>
+
+  <div class="toc">
+    <h2>Contents</h2>
+    <ol>
+      <li><a href="#s1">Acceptance of Terms</a></li>
+      <li><a href="#s2">Description of the Service</a></li>
+      <li><a href="#s3">License Grant</a></li>
+      <li><a href="#s4">License Restrictions</a></li>
+      <li><a href="#s5">Purchases and Payment</a></li>
+      <li><a href="#s6">Refund Policy</a></li>
+      <li><a href="#s7">System Requirements</a></li>
+      <li><a href="#s8">Third-Party Services</a></li>
+      <li><a href="#s9">Intellectual Property</a></li>
+      <li><a href="#s10">Disclaimer of Warranties</a></li>
+      <li><a href="#s11">Limitation of Liability</a></li>
+      <li><a href="#s12">Governing Law</a></li>
+      <li><a href="#s13">Changes to Terms</a></li>
+      <li><a href="#s14">Contact</a></li>
+    </ol>
+  </div>
+
+  <section id="s1">
+    <h2><span class="num">1</span> Acceptance of Terms</h2>
+    <p>By downloading, installing, or using Daybar (the "Software"), you agree to be bound by these Terms of Service ("Terms"). If you do not agree to these Terms, do not install or use the Software.</p>
+    <p>These Terms constitute a legally binding End User License Agreement (EULA) between you ("User") and Viet Cao, the individual developer of Daybar ("Developer").</p>
+  </section>
+
+  <section id="s2">
+    <h2><span class="num">2</span> Description of the Service</h2>
+    <p>Daybar is a macOS menu bar application that provides a unified interface for calendar management, task tracking, world clocks, focus timers, and related productivity features. The Software integrates with third-party calendar services (Google Calendar, Microsoft Outlook, Apple Calendar) on your behalf.</p>
+
+    <div class="key-terms">
+      <div class="key-term">
+        <strong>Daybar Free</strong>
+        <span>Core calendar view, tasks, world clocks, Apple Calendar sync - no purchase required</span>
+      </div>
+      <div class="key-term">
+        <strong>Daybar Pro</strong>
+        <span>Unlocks all features: Google Calendar, Outlook, themes, Pomodoro, and more - one-time $14.99</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="s3">
+    <h2><span class="num">3</span> License Grant</h2>
+    <p>Subject to these Terms and payment of the applicable license fee, the Developer grants you a <strong>personal, non-exclusive, non-transferable, perpetual license</strong> to install and use Daybar on up to <strong>5 (five) Apple-silicon Mac computers</strong> that you own or control.</p>
+    <p>Your license is tied to a single license key issued at purchase. You may use the key across multiple devices by activating it on each. If you exceed 5 activations, you must deactivate an existing device before activating a new one.</p>
+    <p>The Free tier of Daybar is licensed under the same terms without requiring a purchase.</p>
+  </section>
+
+  <section id="s4">
+    <h2><span class="num">4</span> License Restrictions</h2>
+    <p>You may not:</p>
+    <ul>
+      <li>Share, sell, sublicense, rent, or transfer your license key to any other person</li>
+      <li>Reverse engineer, decompile, or disassemble the Software</li>
+      <li>Modify, adapt, or create derivative works based on the Software</li>
+      <li>Remove or alter any copyright, trademark, or proprietary notices</li>
+      <li>Use the Software for any unlawful purpose</li>
+      <li>Distribute the Software's installation files (DMG) other than by linking to the official download</li>
+    </ul>
+  </section>
+
+  <section id="s5">
+    <h2><span class="num">5</span> Purchases and Payment</h2>
+    <p>Daybar Pro is available for a <strong>one-time purchase of USD $14.99</strong>. This is not a subscription - you pay once and own the license indefinitely, including all future updates to the current major version.</p>
+    <p>Payments are processed by <strong>Lemon Squeezy</strong> (HQ: Delaware, USA), who acts as the Merchant of Record. Lemon Squeezy handles all payment processing, VAT collection (including EU VAT), and applicable taxes. Your payment information is processed and stored by Lemon Squeezy, not by us.</p>
+    <p>After a successful purchase, you will receive a license key via email from Lemon Squeezy. Keep this key safe - it is required to activate Daybar Pro on each device.</p>
+  </section>
+
+  <section id="s6">
+    <h2><span class="num">6</span> Refund Policy</h2>
+    <div class="callout callout-green">
+      <span class="callout-icon">💚</span>
+      <p><strong>7-day money-back guarantee.</strong> If you are not satisfied with Daybar Pro for any reason, email us at <a href="mailto:support@daybar.app">support@daybar.app</a> within 7 days of purchase and we will issue a full refund - no questions asked.</p>
+    </div>
+    <p>After 7 days, refunds are at the Developer's discretion. We will consider refund requests for:</p>
+    <ul>
+      <li>A significant bug that prevents core functionality and has not been resolved within 14 days</li>
+      <li>Duplicate purchases made in error</li>
+    </ul>
+    <p>Refunds are not available for: change of mind after 7 days, incompatibility with hardware you did not verify before purchase, or features not present at the time of purchase that you expected to be added.</p>
+    <p>Upon a confirmed refund, your license key will be deactivated. You must uninstall the Software or revert to the Free tier.</p>
+  </section>
+
+  <section id="s7">
+    <h2><span class="num">7</span> System Requirements</h2>
+    <p>Daybar requires:</p>
+    <ul>
+      <li><strong>macOS 12 (Monterey) or later</strong></li>
+      <li><strong>Apple Silicon (M1 or later)</strong> - Intel Macs are not supported at this time</li>
+      <li>Internet connection for calendar sync and license validation</li>
+      <li>A supported calendar account (Google, Microsoft, or Apple) for calendar features</li>
+    </ul>
+    <p>It is your responsibility to verify your device meets these requirements before purchasing. Incompatibility with unsupported hardware is not grounds for a refund after the 7-day period.</p>
+  </section>
+
+  <section id="s8">
+    <h2><span class="num">8</span> Third-Party Services</h2>
+    <p>Daybar integrates with third-party calendar and productivity services. Your use of these services is governed by their respective terms and privacy policies:</p>
+    <ul>
+      <li><a href="https://policies.google.com/terms" target="_blank" rel="noopener">Google Terms of Service</a></li>
+      <li><a href="https://www.microsoft.com/en-us/servicesagreement/" target="_blank" rel="noopener">Microsoft Services Agreement</a></li>
+      <li><a href="https://www.apple.com/legal/internet-services/icloud/" target="_blank" rel="noopener">Apple iCloud Terms and Conditions</a></li>
+      <li><a href="https://www.lemonsqueezy.com/terms" target="_blank" rel="noopener">Lemon Squeezy Terms of Service</a></li>
+    </ul>
+    <p>We are not responsible for the availability, accuracy, or behavior of third-party services. If Google Calendar, Microsoft, or Apple changes or limits their APIs, calendar functionality in Daybar may be affected. Such changes are not grounds for a refund outside the 7-day period.</p>
+  </section>
+
+  <section id="s9">
+    <h2><span class="num">9</span> Intellectual Property</h2>
+    <p>Daybar and all related intellectual property rights (source code, design, graphics, documentation, trademarks) are owned exclusively by Viet Cao. Nothing in these Terms transfers ownership of the Software to you - you receive a limited license to use it.</p>
+    <p>"Daybar" and the Daybar logo are trademarks of Viet Cao. You may not use these marks without prior written consent.</p>
+  </section>
+
+  <section id="s10">
+    <h2><span class="num">10</span> Disclaimer of Warranties</h2>
+    <p>THE SOFTWARE IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.</p>
+    <p>The Developer does not warrant that:</p>
+    <ul>
+      <li>The Software will be error-free or uninterrupted</li>
+      <li>Calendar data will be synced accurately or on time</li>
+      <li>The Software will be compatible with future versions of macOS</li>
+      <li>Third-party calendar services will remain available or accessible</li>
+    </ul>
+    <p><strong>Do not rely on Daybar as your sole source of truth for critical meetings, appointments, or deadlines.</strong> Always verify important events directly in your calendar application.</p>
+  </section>
+
+  <section id="s11">
+    <h2><span class="num">11</span> Limitation of Liability</h2>
+    <p>TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, IN NO EVENT SHALL THE DEVELOPER BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, INCLUDING BUT NOT LIMITED TO LOSS OF PROFITS, LOST DATA, MISSED APPOINTMENTS, OR BUSINESS INTERRUPTION, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.</p>
+    <p>THE DEVELOPER'S TOTAL CUMULATIVE LIABILITY TO YOU FOR ANY CLAIMS ARISING FROM OR RELATED TO THE SOFTWARE SHALL NOT EXCEED THE AMOUNT YOU PAID FOR THE SOFTWARE IN THE 12 MONTHS PRECEDING THE CLAIM (OR USD $14.99 IF NO PURCHASE WAS MADE).</p>
+    <p>Some jurisdictions do not allow the exclusion or limitation of certain warranties or liability. In such jurisdictions, the above limitations apply to the maximum extent permitted by law.</p>
+  </section>
+
+  <section id="s12">
+    <h2><span class="num">12</span> Governing Law</h2>
+    <p>These Terms are governed by and construed in accordance with the laws of the Socialist Republic of Vietnam, without regard to its conflict of law principles.</p>
+    <p>For users in the European Union: Nothing in these Terms affects your rights as a consumer under applicable EU consumer protection law, including the EU Consumer Rights Directive and local implementations thereof. EU consumers retain all statutory rights provided by their country's law.</p>
+    <p>Any disputes shall first be attempted to be resolved amicably via email at <a href="mailto:support@daybar.app">support@daybar.app</a>.</p>
+  </section>
+
+  <section id="s13">
+    <h2><span class="num">13</span> Changes to Terms</h2>
+    <p>We reserve the right to modify these Terms at any time. When we make material changes, we will update the "Last updated" date at the top of this page. We will make reasonable efforts to notify users of significant changes via the Daybar app or our website.</p>
+    <p>Continued use of the Software after changes become effective constitutes your acceptance of the new Terms. If you do not agree to the revised Terms, you may request a refund (subject to the refund policy above) and uninstall the Software.</p>
+  </section>
+
+  <section id="s14">
+    <h2><span class="num">14</span> Contact</h2>
+    <p>For questions about these Terms, support requests, or legal notices:</p>
+    <ul>
+      <li><strong>Email:</strong> <a href="mailto:support@daybar.app">support@daybar.app</a></li>
+      <li><strong>Response time:</strong> Within 5 business days</li>
+    </ul>
+    <p>For refund requests, please include your Lemon Squeezy order number in your email.</p>
+  </section>
+
+</div>
+
+<footer>
+  <div class="foot-inner">
+    <div class="foot-links">
+      <a href="index.html">Home</a>
+      <a href="docs/index.html">Docs</a>
+      <a href="https://github.com/vietch2612/chronosbar" target="_blank" rel="noopener">GitHub</a>
+      <a href="mailto:support@daybar.app">Support</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html" aria-current="page">Terms of Service</a>
+    </div>
+    <span class="foot-copy">&copy; 2026 Daybar. All rights reserved.</span>
+  </div>
+</footer>
+
+</body>
+</html>

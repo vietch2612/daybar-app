@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Daybar - Your day, always one click away</title>
+  <meta name="description" content="The ultimate minimal macOS menu bar calendar. Sync Google, Outlook, and iCloud. Join meetings in one click. No subscriptions—just $14.99 for life." />
+  <meta property="og:title" content="Daybar - macOS Menu Bar Calendar" />
+  <meta property="og:description" content="The ultimate minimal macOS menu bar calendar. Sync Google, Outlook, and iCloud. Join meetings in one click. No subscriptions—just $14.99 for life." />
+  <meta property="og:image" content="https://daybar.app/og.svg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://daybar.app/og.svg" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── Reset & Base ──────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --page-bg:      #080c10;
+      --surface:      rgba(255,255,255,0.04);
+      --surface-b:    rgba(255,255,255,0.07);
+      --border:       rgba(255,255,255,0.07);
+      --border-b:     rgba(255,255,255,0.14);
+      --text:         #c9d1d9;
+      --text-h:       #f0f6fc;
+      --muted:        rgba(201,209,217,0.5);
+      --accent:       #f0883e;
+      --accent-dim:   rgba(240,136,62,0.12);
+      --accent-glow:  rgba(240,136,62,0.3);
+      --green:        #3ddbd9;
+      --page-width:   72rem;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: Inter, sans-serif; background: var(--page-bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+    h1, h2, h3, h4 { font-weight: 700; color: var(--text-h); line-height: 1.2; }
+    a { color: var(--accent); text-decoration: none; transition: opacity 0.2s; }
+    a:hover { opacity: 0.75; }
+
+    .page { max-width: var(--page-width); margin: 0 auto; padding: 0 2rem; }
+
+    /* ─── Badges ──────────────────────────────────────────────────────── */
+    .badge {
+      display: inline-block;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.15em 0.5em;
+      border-radius: 4px;
+      vertical-align: middle;
+      margin-left: 0.35rem;
+      line-height: 1.6;
+    }
+    .badge-pro  { background: var(--accent-dim); color: var(--accent); border: 1px solid rgba(240,136,62,0.3); }
+    .badge-free { background: rgba(61,219,217,0.1); color: var(--green); border: 1px solid rgba(61,219,217,0.25); }
+
+    /* ─── Header ──────────────────────────────────────────────────────── */
+    header {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0.85rem 2rem;
+      border-bottom: 1px solid var(--border);
+      background: rgba(8,12,16,0.85);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    }
+
+    .logo {
+      font-size: 1.2rem; font-weight: 700; color: var(--text-h);
+      display: flex; align-items: center; gap: 0.5rem; letter-spacing: -0.02em;
+    }
+
+    nav { display: flex; align-items: center; gap: 0.15rem; }
+    nav a {
+      color: var(--muted); padding: 0.4rem 0.8rem; font-size: 0.875rem;
+      border-radius: 6px; transition: color 0.2s, background 0.2s;
+    }
+    nav a:hover { color: var(--text-h); background: var(--surface); opacity: 1; }
+
+    .header-ctas { display: flex; align-items: center; gap: 0.65rem; }
+
+    /* ─── Buttons ─────────────────────────────────────────────────────── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.55rem 1.2rem; border-radius: 8px;
+      font-weight: 600; font-size: 0.875rem; border: none; cursor: pointer;
+      transition: all 0.2s; text-decoration: none; white-space: nowrap;
+    }
+    .btn-primary { background: var(--accent); color: #000; }
+    .btn-primary:hover { opacity: 1; filter: brightness(1.1); transform: translateY(-1px); }
+    .btn-secondary { background: transparent; color: var(--text-h); border: 1.5px solid var(--border-b); }
+    .btn-secondary:hover { background: var(--surface-b); opacity: 1; }
+    .btn-ghost { background: transparent; color: var(--accent); border: 1.5px solid rgba(240,136,62,0.4); }
+    .btn-ghost:hover { background: var(--accent-dim); opacity: 1; }
+    .btn-lg { padding: 0.75rem 1.75rem; font-size: 0.95rem; border-radius: 10px; }
+
+    /* ─── Hero ──────────────────────────────────────────────────────────── */
+    .hero {
+      padding: 6rem 2rem 4rem;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; top: -100px; left: 30%; transform: translateX(-50%);
+      width: 800px; height: 500px;
+      background: radial-gradient(ellipse, rgba(240,136,62,0.11) 0%, transparent 68%);
+      pointer-events: none;
+    }
+
+    /* Desktop: two-column side by side */
+    .hero-inner {
+      max-width: var(--page-width); margin: 0 auto;
+      display: flex; align-items: center; gap: 4rem;
+    }
+    .hero-copy {
+      flex: 1; min-width: 0;
+      display: flex; flex-direction: column; align-items: flex-start;
+    }
+    .hero-mockup-wrap {
+      flex: 0 0 auto; display: flex; justify-content: center; align-items: center;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 0.45rem;
+      font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--accent); background: var(--accent-dim);
+      border: 1px solid rgba(240,136,62,0.25); border-radius: 100px;
+      padding: 0.28rem 0.9rem; margin-bottom: 1.5rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.4rem, 4.5vw, 3.5rem); font-weight: 800; letter-spacing: -0.03em;
+      margin-bottom: 1.2rem; text-align: left;
+      background: linear-gradient(155deg, var(--text-h) 45%, var(--accent) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+
+    .hero-sub {
+      font-size: 1.05rem; color: var(--muted);
+      max-width: 480px; margin: 0 0 2.25rem; line-height: 1.75; text-align: left;
+    }
+
+    .hero-ctas { display: inline-flex; gap: 0.7rem; margin-bottom: 0.75rem; flex-wrap: wrap; }
+    .hero-note { font-size: 0.78rem; color: var(--muted); margin-bottom: 0.5rem; }
+    .hero-guarantee { font-size: 0.78rem; color: #6ee7b7; letter-spacing: 0.01em; }
+
+    /* Mobile: stack vertically, re-center */
+    @media (max-width: 768px) {
+      .hero { padding: 5rem 1.5rem 3rem; }
+      .hero-inner { flex-direction: column; gap: 3rem; align-items: center; }
+      .hero-copy { align-items: center; }
+      .hero h1 { text-align: center; font-size: clamp(2.2rem, 8vw, 3rem); }
+      .hero-sub { text-align: center; margin: 0 auto 2.25rem; }
+      .hero-ctas { justify-content: center; }
+    }
+
+    /* ─── App Mockup ────────────────────────────────────────────────────── */
+    .mockup-outer {
+      display: block; position: relative; width: 300px;
+    }
+    .mockup-outer::before {
+      content: ''; position: absolute; inset: -2px; border-radius: 18px;
+      background: linear-gradient(135deg, rgba(240,136,62,0.35), rgba(59,130,246,0.15), transparent);
+      z-index: 0;
+    }
+    .mockup {
+      position: relative; z-index: 1;
+      background: #0d1117; border-radius: 16px; overflow: hidden;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.65), 0 0 0 1px rgba(255,255,255,0.07);
+      font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #e6edf3;
+    }
+    .m-bar {
+      background: #161b22; padding: 10px 14px;
+      display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .m-title { font-weight: 600; font-size: 11.5px; color: #f0f6fc; }
+    .m-tabs { display: flex; gap: 6px; }
+    .m-tab { font-size: 9.5px; color: rgba(201,209,217,0.45); padding: 2px 7px; border-radius: 4px; }
+    .m-tab.active { background: rgba(240,136,62,0.14); color: #f0883e; }
+    .m-body { padding: 11px 14px; }
+    .m-cal {
+      display: grid; grid-template-columns: repeat(7, 1fr);
+      gap: 1px; margin-bottom: 10px;
+    }
+    .m-dl { text-align: center; font-size: 8.5px; color: rgba(201,209,217,0.35); padding: 2px 0; }
+    .m-day {
+      text-align: center; padding: 4px 0; border-radius: 4px;
+      font-size: 9.5px; color: rgba(201,209,217,0.65);
+    }
+    .m-day.today { background: #f0883e; color: #000; font-weight: 700; border-radius: 5px; }
+    .m-day.dot::after {
+      content: ''; display: block; width: 3px; height: 3px;
+      background: rgba(240,136,62,0.7); border-radius: 50%; margin: 1px auto 0;
+    }
+    .m-day.today.dot::after { background: rgba(0,0,0,0.5); }
+    .m-event {
+      border-left: 2px solid #f0883e; background: rgba(240,136,62,0.1);
+      border-radius: 0 5px 5px 0; padding: 5px 8px; margin-bottom: 5px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .m-event.blue  { border-left-color: #4285f4; background: rgba(66,133,244,0.09); }
+    .m-event.teal  { border-left-color: #3ddbd9; background: rgba(61,219,217,0.08); }
+    .m-event-name { font-size: 9.5px; color: #f0f6fc; font-weight: 500; }
+    .m-event-time { font-size: 8.5px; color: rgba(201,209,217,0.45); }
+    .m-foot {
+      border-top: 1px solid rgba(255,255,255,0.07); padding: 8px 14px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .m-icons { display: flex; gap: 5px; }
+    .m-ic {
+      width: 20px; height: 20px; border-radius: 4px;
+      background: rgba(255,255,255,0.07);
+      display: flex; align-items: center; justify-content: center; font-size: 9px;
+    }
+    .m-meeting { font-size: 9.5px; color: #f0883e; font-weight: 600; }
+
+    /* ─── Proof Bar ───────────────────────────────────────────────────── */
+    .proof-bar {
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+      background: var(--surface); padding: 1.1rem 2rem;
+    }
+    .proof-inner {
+      max-width: var(--page-width); margin: 0 auto;
+      display: flex; align-items: center; justify-content: center; flex-wrap: wrap;
+    }
+    .proof-item {
+      display: flex; align-items: center; gap: 0.45rem;
+      padding: 0.3rem 1.75rem; color: var(--muted); font-size: 0.85rem;
+    }
+    .proof-item + .proof-item { border-left: 1px solid var(--border); }
+    .proof-val { color: var(--text-h); font-weight: 700; font-size: 0.95rem; }
+
+    /* ─── Sections ────────────────────────────────────────────────────── */
+    .section    { padding: 5.5rem 2rem; }
+    .section-sm { padding: 4rem 2rem; }
+    .divider    { border-top: 1px solid var(--border); }
+    .text-center { text-align: center; }
+
+    .section-eyebrow {
+      display: inline-block; font-size: 0.72rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 0.65rem;
+    }
+    .section-title {
+      font-size: clamp(1.65rem, 3.5vw, 2.4rem); font-weight: 800;
+      letter-spacing: -0.03em; margin-bottom: 0.7rem;
+    }
+    .section-sub { font-size: 1rem; color: var(--muted); max-width: 520px; margin: 0 auto; line-height: 1.75; }
+
+    /* ─── Features Grid ──────────────────────────────────────────────── */
+    .feat-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(272px, 1fr));
+      gap: 1.25rem; border: none; margin-top: 2.75rem; overflow: visible;
+    }
+    .feat-card {
+      background: var(--surface); padding: 1.65rem; border-radius: 16px;
+      border: 1px solid var(--border);
+      transition: background 0.2s, border-color 0.2s, transform 0.2s;
+    }
+    .feat-card:hover { background: var(--surface-b); border-color: rgba(240,136,62,0.4); transform: translateY(-2px); }
+    .feat-icon { font-size: 1.4rem; margin-bottom: 0.65rem; display: block; }
+    .feat-card h3 {
+      font-size: 0.95rem; font-weight: 600; margin-bottom: 0.35rem;
+      display: flex; align-items: center; flex-wrap: wrap; gap: 0.05rem;
+    }
+    .feat-card p { font-size: 0.85rem; color: var(--muted); line-height: 1.65; }
+    
+    @media (min-width: 768px) {
+      .feat-grid { grid-template-columns: repeat(3, 1fr); grid-auto-rows: minmax(180px, auto); }
+      .col-2 { grid-column: span 2; }
+      .row-2 { grid-row: span 2; }
+      .feat-card.featured-feat {
+        background: linear-gradient(145deg, rgba(240,136,62,0.06), var(--surface));
+      }
+    }
+
+    /* ─── Themes ─────────────────────────────────────────────────────── */
+    .themes-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 0.9rem; margin-top: 2.5rem;
+    }
+    .theme-card {
+      border-radius: 10px; overflow: hidden;
+      border: 1px solid var(--border); transition: transform 0.2s, border-color 0.2s;
+    }
+    .theme-card:hover { transform: translateY(-3px); border-color: rgba(240,136,62,0.5); }
+    .theme-swatch { height: 72px; padding: 10px 10px 8px; display: flex; flex-direction: column; gap: 5px; }
+    .theme-bar { height: 7px; border-radius: 4px; }
+    .theme-bar:nth-child(2) { width: 68%; opacity: 0.55; }
+    .theme-bar:nth-child(3) { width: 46%; opacity: 0.35; }
+    .theme-name {
+      padding: 0.45rem 0.7rem; font-size: 0.78rem; font-weight: 600;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+
+    /* theme palettes */
+    .t-auto      .theme-swatch { background: linear-gradient(135deg,#f0f2f5,#e6e9f0); }
+    .t-auto      .theme-bar    { background: #2563eb; }
+    .t-auto      .theme-name   { background: #f0f2f5; color: #1a1a2e; }
+
+    .t-macos     .theme-swatch { background: linear-gradient(135deg,#1e1e1e,#2a2a2a); }
+    .t-macos     .theme-bar    { background: #0a84ff; }
+    .t-macos     .theme-name   { background: #1e1e1e; color: #fff; }
+
+    .t-light     .theme-swatch { background: linear-gradient(135deg,#f5f7fa,#ecf0f6); }
+    .t-light     .theme-bar    { background: #2563eb; }
+    .t-light     .theme-name   { background: #f5f7fa; color: #1a1a2e; }
+
+    .t-dark      .theme-swatch { background: linear-gradient(135deg,#1e2130,#262d40); }
+    .t-dark      .theme-bar    { background: #3b82f6; }
+    .t-dark      .theme-name   { background: #1e2130; color: #e2e8f0; }
+
+    .t-midnight  .theme-swatch { background: linear-gradient(135deg,#0d1117,#161b22); }
+    .t-midnight  .theme-bar    { background: #f0883e; }
+    .t-midnight  .theme-name   { background: #0d1117; color: #e6edf3; font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; }
+
+    .t-nord      .theme-swatch { background: linear-gradient(135deg,#2e3440,#3b4252); }
+    .t-nord      .theme-bar    { background: #88c0d0; }
+    .t-nord      .theme-name   { background: #2e3440; color: #eceff4; }
+
+    .t-dracula   .theme-swatch { background: linear-gradient(135deg,#282a36,#343747); }
+    .t-dracula   .theme-bar    { background: #bd93f9; }
+    .t-dracula   .theme-name   { background: #282a36; color: #f8f8f2; }
+
+    .t-rose      .theme-swatch { background: linear-gradient(135deg,#191724,#26233a); }
+    .t-rose      .theme-bar    { background: #c4a7e7; }
+    .t-rose      .theme-name   { background: #191724; color: #e0def4; }
+
+    .t-solarized .theme-swatch { background: linear-gradient(135deg,#002b36,#073642); }
+    .t-solarized .theme-bar    { background: #268bd2; }
+    .t-solarized .theme-name   { background: #002b36; color: #fdf6e3; }
+
+    .t-tokyo     .theme-swatch { background: linear-gradient(135deg,#1a1b26,#24283b); }
+    .t-tokyo     .theme-bar    { background: #7aa2f7; }
+    .t-tokyo     .theme-name   { background: #1a1b26; color: #c0caf5; }
+
+    /* ─── Pricing ─────────────────────────────────────────────────────── */
+    .pricing-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1.25rem; max-width: 760px; margin: 2.75rem auto 0;
+    }
+    .pricing-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.9rem;
+    }
+    .pricing-card.featured {
+      border-color: rgba(240,136,62,0.45);
+      background: linear-gradient(155deg, rgba(240,136,62,0.07) 0%, var(--surface) 55%);
+      position: relative;
+    }
+    .pricing-card.featured::before {
+      content: 'Most Popular'; position: absolute; top: -1px; left: 50%; transform: translateX(-50%);
+      background: var(--accent); color: #000;
+      font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+      padding: 0.18rem 0.75rem; border-radius: 0 0 6px 6px;
+    }
+    .p-tier { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 0.9rem; }
+    .pricing-card.featured .p-tier { color: var(--accent); }
+    .p-price { font-size: 2.4rem; font-weight: 800; color: var(--text-h); letter-spacing: -0.03em; line-height: 1; }
+    .p-note { font-size: 0.78rem; color: var(--muted); margin-top: 0.25rem; margin-bottom: 1.4rem; }
+    .p-list { list-style: none; margin-bottom: 1.6rem; }
+    .p-list li {
+      padding: 0.45rem 0; font-size: 0.85rem; color: var(--muted);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: flex-start; gap: 0.5rem;
+    }
+    .p-list li:last-child { border-bottom: none; }
+    .p-list li.ok { color: var(--text); }
+    .p-list li.ok::before  { content: '✓'; color: var(--green); flex-shrink: 0; font-weight: 700; }
+    .p-list li.off::before { content: '·'; color: var(--muted); flex-shrink: 0; }
+    .pricing-card .btn { width: 100%; justify-content: center; }
+
+    /* ─── FAQ ─────────────────────────────────────────────────────────── */
+    .faq-list { max-width: 680px; margin: 2.5rem auto 0; }
+    .faq-item { border-bottom: 1px solid var(--border); }
+    .faq-q {
+      width: 100%; background: none; border: none; text-align: left;
+      padding: 1.1rem 0; cursor: pointer;
+      display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+      color: var(--text-h); font-size: 0.92rem; font-weight: 600;
+      font-family: Inter, sans-serif; transition: color 0.2s;
+    }
+    .faq-q:hover { color: var(--accent); }
+    .faq-arrow {
+      flex-shrink: 0; width: 20px; height: 20px; border-radius: 50%;
+      background: var(--surface-b); display: flex; align-items: center; justify-content: center;
+      transition: transform 0.25s, background 0.2s; font-size: 0.65rem; color: var(--accent);
+    }
+    .faq-item.open .faq-arrow { transform: rotate(180deg); background: var(--accent-dim); }
+    .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+    .faq-a-inner { padding-bottom: 1.1rem; font-size: 0.875rem; color: var(--muted); line-height: 1.8; }
+    .faq-a-inner code { font-family: 'JetBrains Mono', monospace; font-size: 0.8em; color: var(--accent); background: var(--accent-dim); padding: 0.15em 0.4em; border-radius: 3px; }
+
+    /* ─── Testimonials ────────────────────────────────────────────────── */
+    .testi-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem; margin-top: 2.75rem;
+    }
+    .testi-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.75rem;
+      display: flex; flex-direction: column; gap: 1rem;
+      transition: transform 0.2s, background 0.2s;
+    }
+    .testi-card:hover { transform: translateY(-3px); background: var(--surface-b); }
+    .testi-quote { font-size: 0.95rem; color: var(--text-h); line-height: 1.6; font-style: italic; }
+    .testi-author { display: flex; align-items: center; gap: 0.75rem; margin-top: auto; }
+    .testi-avatar { width: 38px; height: 38px; border-radius: 50%; background: var(--surface-b); display: flex; align-items: center; justify-content: center; font-size: 1rem; font-weight: 700; color: #fff; }
+    .ava-1 { background: linear-gradient(135deg, #f0883e, #f97316); }
+    .ava-2 { background: linear-gradient(135deg, #3ddbd9, #06b6d4); }
+    .ava-3 { background: linear-gradient(135deg, #818cf8, #a855f7); }
+    .testi-info { display: flex; flex-direction: column; }
+    .testi-name { font-size: 0.85rem; font-weight: 600; color: var(--text-h); }
+    .testi-role { font-size: 0.75rem; color: var(--muted); }
+    .testi-stars { color: #f59e0b; font-size: 0.85rem; letter-spacing: 2px; margin-bottom: -0.25rem; }
+
+    /* ─── CTA Section ─────────────────────────────────────────────────── */
+    .cta-sec {
+      text-align: center; padding: 6rem 2rem; position: relative; overflow: hidden;
+    }
+    .cta-sec::before {
+      content: ''; position: absolute; bottom: -80px; left: 50%; transform: translateX(-50%);
+      width: 650px; height: 380px;
+      background: radial-gradient(ellipse, rgba(240,136,62,0.09) 0%, transparent 68%);
+      pointer-events: none;
+    }
+    .cta-sec h2 { font-size: clamp(1.65rem, 4vw, 2.4rem); font-weight: 800; letter-spacing: -0.03em; margin-bottom: 0.85rem; }
+    .cta-sec p { color: var(--muted); margin-bottom: 2rem; font-size: 1rem; }
+    .cta-btns { display: inline-flex; gap: 0.7rem; flex-wrap: wrap; justify-content: center; }
+    .cta-note { margin-top: 0.9rem; font-size: 0.77rem; color: var(--muted); }
+
+    /* ─── Footer ──────────────────────────────────────────────────────── */
+    footer { border-top: 1px solid var(--border); padding: 2.25rem 2rem; }
+    .foot-inner {
+      max-width: var(--page-width); margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+    }
+    .foot-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+    .foot-links a { color: var(--muted); font-size: 0.83rem; }
+    .foot-links a:hover { color: var(--text-h); opacity: 1; }
+    .foot-copy { font-size: 0.8rem; color: var(--muted); }
+
+    /* ─── Responsive ─────────────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      header { padding: 0.75rem 1rem; }
+      nav { display: none; }
+      .header-ctas .btn-secondary { display: none; }
+      .hero { padding: 5rem 1rem 3rem; }
+      .proof-item { padding: 0.3rem 0.9rem; }
+      .proof-item + .proof-item { border-left: none; border-top: 1px solid var(--border); }
+      .proof-inner { flex-direction: column; }
+      .section, .section-sm { padding: 3.5rem 1rem; }
+      .pricing-grid { grid-template-columns: 1fr; }
+      .themes-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); }
+      .foot-inner { flex-direction: column; text-align: center; }
+      .foot-links { justify-content: center; }
+    }
+
+    /* ─── Animations ─────────────────────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up { opacity: 0; }
+    .fade-up.visible { animation: fadeUp 0.5s ease forwards; }
+    .d1 { animation-delay: 0.1s; }
+    .d2 { animation-delay: 0.2s; }
+
+    /* ─── Hero Screenshot Frame ───────────────────────────────────────── */
+    @keyframes screenshotFloat {
+      0%, 100% { transform: translateY(0px); }
+      50%       { transform: translateY(-10px); }
+    }
+    @keyframes glowPulse {
+      0%, 100% { opacity: 0.45; }
+      50%       { opacity: 1; }
+    }
+
+    .screenshot-frame {
+      position: relative;
+      display: block;
+      animation: screenshotFloat 5s ease-in-out infinite;
+    }
+    .screenshot-frame::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, rgba(240,136,62,0.4), rgba(59,130,246,0.15), transparent);
+      z-index: 0;
+      animation: glowPulse 3s ease-in-out infinite;
+    }
+    .screenshot-frame img {
+      position: relative;
+      z-index: 1;
+      display: block;
+      border-radius: 16px;
+      max-width: 340px;
+      width: 100%;
+      height: auto;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.07);
+    }
+    @media (max-width: 768px) {
+      .screenshot-frame img { max-width: 280px; }
+    }
+
+    /* ─── Screenshots Gallery ─────────────────────────────────────────── */
+    .shots-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      margin-top: 2.75rem;
+      align-items: start;
+    }
+    .shot-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .shot-card:hover { transform: translateY(-4px); border-color: rgba(240,136,62,0.4); }
+    .shot-card img {
+      display: block;
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+      object-position: top;
+    }
+    .shot-label {
+      padding: 0.65rem 1rem;
+      font-size: 0.82rem;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+    @media (max-width: 900px) {
+      .shots-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .shots-grid { grid-template-columns: 1fr; }
+      .shot-card img { height: 200px; }
+    }
+
+    /* Midnight Auto / Midnight Light theme swatches */
+    .t-midnight-auto  .theme-swatch { background: linear-gradient(135deg,#1a1f28,#f0f2f5); }
+    .t-midnight-auto  .theme-bar    { background: #f0883e; }
+    .t-midnight-auto  .theme-name   { background: #1a1f28; color: #e6edf3; font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; }
+
+    .t-midnight-light .theme-swatch { background: linear-gradient(135deg,#f7f4f0,#ede8e0); }
+    .t-midnight-light .theme-bar    { background: #f0883e; }
+    .t-midnight-light .theme-name   { background: #f7f4f0; color: #1a1a1a; font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     HEADER
+     ════════════════════════════════════════════════════════════════════════ -->
+<header>
+  <div class="logo">
+    <img src="favicon.svg" width="24" height="24" alt="Daybar Logo" />
+    Daybar
+  </div>
+  <nav>
+    <a href="#features">Features</a>
+    <a href="#themes">Themes</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#faq">FAQ</a>
+    <a href="/docs/">Docs</a>
+  </nav>
+  <div class="header-ctas">
+    <a href="/thank-you.html?dmg=/download/arm64"
+       class="btn btn-secondary"
+       data-umami-event="header-download-free">Download Free</a>
+    <a href="https://daybar.lemonsqueezy.com/checkout/buy/a3356c2e-e712-4cae-8d3f-73c0c8dee60a"
+       class="btn btn-primary"
+       data-umami-event="header-get-pro">Get Pro - $14.99</a>
+  </div>
+</header>
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     HERO
+     ════════════════════════════════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-inner">
+
+    <!-- Left: copy -->
+    <div class="hero-copy fade-up d1">
+      <div class="hero-eyebrow">
+        <svg width="8" height="8" viewBox="0 0 8 8"><circle cx="4" cy="4" r="3" fill="#f0883e" opacity="0.7"/><circle cx="4" cy="4" r="1.5" fill="#f0883e"/></svg>
+        macOS menu bar app &nbsp;·&nbsp; 7-day Pro trial included
+      </div>
+
+      <h1>Your day, always<br>one click away</h1>
+
+      <p class="hero-sub">
+        Google Calendar, Outlook, and iCloud - unified in your menu bar.
+        Tasks, world clocks, a focus timer, and live meeting countdowns.<br/><br/>
+        <strong>Zero subscriptions.</strong> Buy once, use forever.
+      </p>
+
+      <div class="hero-ctas">
+        <a href="/thank-you.html?dmg=/download/arm64"
+           class="btn btn-primary btn-lg"
+           data-umami-event="hero-download-free">
+          ↓ &nbsp;Download Free (7-Day Pro Trial)
+        </a>
+        <a href="https://daybar.lemonsqueezy.com/checkout/buy/a3356c2e-e712-4cae-8d3f-73c0c8dee60a"
+           class="btn btn-ghost btn-lg"
+           data-umami-event="hero-get-pro">
+          Get Pro - $14.99
+        </a>
+      </div>
+      <p class="hero-note">Apple Silicon &amp; Intel Mac &nbsp;·&nbsp; macOS 12+ &nbsp;·&nbsp; Instant download</p>
+      <p class="hero-guarantee">✓ &nbsp;7-day money-back guarantee &nbsp;&nbsp;·&nbsp;&nbsp; ✓ &nbsp;No account required &nbsp;&nbsp;·&nbsp;&nbsp; ✓ &nbsp;Private by default</p>
+    </div>
+
+    <!-- Right: real screenshot -->
+    <div class="hero-mockup-wrap fade-up d2">
+      <div class="screenshot-frame">
+        <img
+          src="screenshots/hero-main.png"
+          alt="Daybar – Midnight Dark theme showing March 2026 calendar with events and world clock panel"
+          width="380"
+          loading="eager"
+        />
+      </div>
+    </div><!-- /hero-mockup-wrap -->
+
+  </div><!-- /hero-inner -->
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     SOCIAL PROOF BAR
+     ════════════════════════════════════════════════════════════════════════ -->
+<div class="proof-bar">
+  <div class="proof-inner">
+    <div class="proof-item"><span class="proof-val">$14.99</span>&nbsp; one-time</div>
+    <div class="proof-item"><span class="proof-val">0</span>&nbsp; subscriptions</div>
+    <div class="proof-item"><span class="proof-val">12</span>&nbsp; themes</div>
+    <div class="proof-item"><span class="proof-val">26</span>&nbsp; meeting platforms</div>
+    <div class="proof-item"><span class="proof-val">Apple Silicon</span>&nbsp; native</div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     SCREENSHOTS
+     ════════════════════════════════════════════════════════════════════════ -->
+<section class="section-sm divider" id="screenshots">
+  <div class="page">
+    <div class="text-center">
+      <span class="section-eyebrow">See It In Action</span>
+      <h2 class="section-title">Real screenshots, no mockups</h2>
+      <p class="section-sub">Everything you see here is captured from the actual Daybar app.</p>
+    </div>
+
+    <div class="shots-grid fade-up">
+
+      <div class="shot-card">
+        <img src="screenshots/nlp-preview.png" alt="Natural language scheduling – type 'Lunch with Sarah tomorrow at noon' and Daybar parses the date instantly" />
+        <p class="shot-label">✍️ &nbsp;Natural language scheduling</p>
+      </div>
+
+      <div class="shot-card">
+        <img src="screenshots/world-clock.png" alt="World clock panel showing 4 cities with current local times" />
+        <p class="shot-label">🌍 &nbsp;World clocks for global teams</p>
+      </div>
+
+      <div class="shot-card">
+        <img src="screenshots/pomodoro.png" alt="Pomodoro focus timer with Focus, Short Break, and Long Break modes" />
+        <p class="shot-label">🍅 &nbsp;Built-in Pomodoro focus timer</p>
+      </div>
+
+      <div class="shot-card">
+        <img src="screenshots/week-view.png" alt="Week calendar view showing the current week with events" />
+        <p class="shot-label">📅 &nbsp;Month &amp; week calendar views</p>
+      </div>
+
+      <div class="shot-card">
+        <img src="screenshots/theme-light.png" alt="Daybar in Light theme with calendar and world clock" />
+        <p class="shot-label">🎨 &nbsp;12 beautiful themes to choose from</p>
+      </div>
+
+      <div class="shot-card">
+        <img src="screenshots/settings-menu.png" alt="Settings context menu with keyboard shortcut" />
+        <p class="shot-label">⚙️ &nbsp;Fully customizable, keyboard-first</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     FEATURES
+     ════════════════════════════════════════════════════════════════════════ -->
+<section class="section divider" id="features">
+  <div class="page">
+    <div class="text-center">
+      <span class="section-eyebrow">Features</span>
+      <h2 class="section-title">Everything your day needs,<br>nothing it doesn't</h2>
+      <p class="section-sub">Daybar stays out of your way - until you need it. One click, full context.</p>
+    </div>
+
+    <div class="feat-grid bento fade-up">
+
+      <!-- Row 1: 2 + 1 -->
+      <div class="feat-card col-2 featured-feat">
+        <span class="feat-icon">📅</span>
+        <h3>Calendar Sync<span class="badge badge-pro">Pro</span></h3>
+        <p>Connect Google Calendar (multi-account), Microsoft Outlook, and iCloud in one unified timeline. OAuth tokens are stored securely in your macOS Keychain - credentials never leave your Mac.</p>
+      </div>
+
+      <div class="feat-card">
+        <span class="feat-icon">⏱</span>
+        <h3>Meeting Countdown<span class="badge badge-pro">Pro</span></h3>
+        <p>Replace the tray icon with a live countdown to your next meeting. When it starts, Daybar surfaces the Zoom, Meet, or Teams link - one shortcut to join without hunting.</p>
+      </div>
+
+      <!-- Row 2 & 3: 1 (row-2) + 2 // then 1 + 1 -->
+      <div class="feat-card row-2 featured-feat">
+        <span class="feat-icon">🍅</span>
+        <h3>Focus Timer<span class="badge badge-pro">Pro</span></h3>
+        <p>Built-in Pomodoro with configurable work, short-break, and long-break phases. Detects calendar conflicts before you start - no surprise interruptions mid-session.</p>
+        <div style="margin-top: 1rem; opacity: 0.5; font-size: 2rem;">⏳</div>
+      </div>
+
+      <div class="feat-card col-2">
+        <span class="feat-icon">✍️</span>
+        <h3>Natural Language Input<span class="badge badge-pro">Pro</span></h3>
+        <p>Type <em>"lunch with Sarah tomorrow at noon"</em> and Daybar parses the date, time, and title instantly - then writes the event back to your connected calendar.</p>
+      </div>
+
+      <div class="feat-card">
+        <span class="feat-icon">🌍</span>
+        <h3>World Clocks<span class="badge badge-free">Free</span></h3>
+        <p>Add up to 44 cities and drag the time scrubber to preview overlapping hours across timezones.</p>
+      </div>
+
+      <div class="feat-card">
+        <span class="feat-icon">☕</span>
+        <h3>Caffeinate<span class="badge badge-free">Free</span></h3>
+        <p>Prevent your Mac from sleeping during presentations or long reads.</p>
+      </div>
+
+      <!-- Row 4: 2 + 1 -->
+      <div class="feat-card col-2">
+        <span class="feat-icon">🔗</span>
+        <h3>Meeting Link Detection<span class="badge badge-pro">Pro</span></h3>
+        <p>Daybar auto-detects links from 26 platforms including Zoom, Google Meet, Teams, Whereby, Jitsi, Webex, Around, Loom, and more - one shortcut away from joining.</p>
+      </div>
+
+      <div class="feat-card">
+        <span class="feat-icon">🖥</span>
+        <h3>Floating Widget<span class="badge badge-pro">Pro</span></h3>
+        <p>A minimal glassmorphic HUD in the corner of your screen shows the time, your next event, and task count.</p>
+      </div>
+
+      <!-- Row 5: 2 + 1 -->
+      <div class="feat-card col-2">
+        <span class="feat-icon">🎨</span>
+        <h3>
+          12 Themes
+          <span class="badge badge-free">4 Free</span>
+          <span class="badge badge-pro">8 Pro</span>
+        </h3>
+        <p>Auto, macOS-native, Light, and Dark are free forever. Pro unlocks Midnight Auto, Midnight Light, Midnight Dark, Nord, Dracula, Rosé Pine, Solarized, and Tokyo Night - plus a full accent color picker.</p>
+      </div>
+
+      <div class="feat-card">
+        <span class="feat-icon">🔔</span>
+        <h3>Daily Agenda<span class="badge badge-pro">Pro</span></h3>
+        <p>An 8 AM notification summarizes your day's meetings and tasks before you even open your laptop.</p>
+      </div>
+
+      <!-- Row 6: 2 + 1 -->
+      <div class="feat-card col-2">
+        <span class="feat-icon">⌨️</span>
+        <h3>Global Shortcuts<span class="badge badge-pro">Pro</span></h3>
+        <p>Toggle Daybar with <kbd style="font-family:monospace;font-size:0.8em">⌘⇧D</kbd>, jump to your next meeting link with <kbd style="font-family:monospace;font-size:0.8em">⌘⇧M</kbd>, or add a new event with <kbd style="font-family:monospace;font-size:0.8em">⌘⇧E</kbd> - from anywhere in macOS.</p>
+      </div>
+
+      <div class="feat-card">
+        <span class="feat-icon">✅</span>
+        <h3>Quick-Add Tasks<span class="badge badge-free">Free</span></h3>
+        <p>Add and check off tasks directly from the menu bar.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     THEMES
+     ════════════════════════════════════════════════════════════════════════ -->
+<section class="section-sm divider" id="themes">
+  <div class="page">
+    <div class="text-center">
+      <span class="section-eyebrow">Themes</span>
+      <h2 class="section-title">Your Mac, your aesthetic</h2>
+      <p class="section-sub">Four themes ship free. Unlock eight more with Pro, plus a custom accent color picker.</p>
+    </div>
+
+    <div class="themes-grid fade-up">
+
+      <div class="theme-card t-auto">
+        <div class="theme-swatch">
+          <div class="theme-bar"></div><div class="theme-bar"></div><div class="theme-bar"></div>
+        </div>
+        <div class="theme-name">Auto<span class="badge badge-free" style="font-size:0.52rem">Free</span></div>
+      </div>
+
+      <div class="theme-card t-macos">
+        <div class="theme-swatch">
+          <div class="theme-bar"></div><div class="theme-bar"></div><div class="theme-bar"></div>
+        </div>
+        <div class="theme-name">macOS<span class="badge badge-free" style="font-size:0.52rem">Free</span></div>
+      </div>
+
+      <div class="theme-card t-light">
+        <div class="theme-swatch">
+          <div class="theme-bar"></div><div class="theme-bar"></div><div class="theme-bar"></div>
+        </div>
+        <div class="theme-name">Light<span class="badge badge-free" style="font-size:0.52rem">Free</span></div>
+      </div>
+
+      <div class="theme-card t-dark">
+        <div class="theme-swatch">
+          <div class="theme-bar"></div><div class="theme-bar"></div><div class="theme-bar"></div>
+        </div>
+        <div class="theme-name">Dark<span class="badge badge-free" style="font-size:0.52rem">Free</span></div>
+      </div>
+
+      <div class="theme-card t-midnight-auto">
+        <div class="theme-swatch">
+          <div class="theme-bar"></div><div class="theme-bar"></div><div class="theme-bar"></div>
+        </div>
+        <div class="theme-name">Midnight Auto<span class="badge badge-pro" style="font-size:0.52rem">Pro</span></div>
+      </div>
+
+      <div class="theme-card t-midnight-light">
+        <div class="theme-swatch">
+          <div class="theme-bar"></div><div class="theme-bar"></div><div class="theme-bar"></div>
+        </div>
+        <div class="theme-name">Midnight Light<span class="badge badge-pro" style="font-size:0.52rem">Pro</span></div>
+      </div>
+
+      <div class="theme-card t-midnight">
+        <div class="theme-swatch">
+          <div class="theme-bar"></div><div class="theme-bar"></div><div class="theme-bar"></div>
+        </div>
+        <div class="theme-name">Midnight<span class="badge badge-pro" style="font-size:0.52rem">Pro</span></div>
+      </div>
+
+      <div class="theme-card t-nord">
+        <div class="theme-swatch">
+          <div class="theme-bar"></div><div class="theme-bar"></div><div class="theme-bar"></div>
+        </div>
+        <div class="theme-name">Nord<span class="badge badge-pro" style="font-size:0.52rem">Pro</span></div>
+      </div>
+
+      <div class="theme-card t-dracula">
+        <div class="theme-swatch">
+          <div class="theme-bar"></div><div class="theme-bar"></div><div class="theme-bar"></div>
+        </div>
+        <div class="theme-name">Dracula<span class="badge badge-pro" style="font-size:0.52rem">Pro</span></div>
+      </div>
+
+      <div class="theme-card t-rose">
+        <div class="theme-swatch">
+          <div class="theme-bar"></div><div class="theme-bar"></div><div class="theme-bar"></div>
+        </div>
+        <div class="theme-name">Rosé Pine<span class="badge badge-pro" style="font-size:0.52rem">Pro</span></div>
+      </div>
+
+      <div class="theme-card t-solarized">
+        <div class="theme-swatch">
+          <div class="theme-bar"></div><div class="theme-bar"></div><div class="theme-bar"></div>
+        </div>
+        <div class="theme-name">Solarized<span class="badge badge-pro" style="font-size:0.52rem">Pro</span></div>
+      </div>
+
+      <div class="theme-card t-tokyo">
+        <div class="theme-swatch">
+          <div class="theme-bar"></div><div class="theme-bar"></div><div class="theme-bar"></div>
+        </div>
+        <div class="theme-name">Tokyo Night<span class="badge badge-pro" style="font-size:0.52rem">Pro</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     TESTIMONIALS
+     ════════════════════════════════════════════════════════════════════════ -->
+<section class="section-sm divider" id="testimonials">
+  <div class="page">
+    <div class="text-center">
+      <span class="section-eyebrow">Wall of Love</span>
+      <h2 class="section-title">Loved by power users</h2>
+      <p class="section-sub">Don't just take our word for it. Here's what early adopters are saying.</p>
+    </div>
+
+    <div class="testi-grid fade-up">
+
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">"Finally, a menu bar calendar that doesn't hold features hostage behind a $40/year subscription. The unified timeline replaced three separate apps for me."</div>
+        <div class="testi-author">
+          <div class="testi-avatar ava-1">A</div>
+          <div class="testi-info">
+            <span class="testi-name">Alex M.</span>
+            <span class="testi-role">Software Engineer</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">"The built-in Pomodoro timer blocking my calendar events has saved my focus hours. And the absolute speed of the Natural Language quick-add is magical."</div>
+        <div class="testi-author">
+          <div class="testi-avatar ava-2">S</div>
+          <div class="testi-info">
+            <span class="testi-name">Sarah K.</span>
+            <span class="testi-role">Product Designer</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">"I manage a global team and the time scrubber alone is worth the price. Visually sliding hours across Stockholm, New York, and Manila saves me so much mental math."</div>
+        <div class="testi-author">
+          <div class="testi-avatar ava-3">D</div>
+          <div class="testi-info">
+            <span class="testi-name">David L.</span>
+            <span class="testi-role">Engineering Manager</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     PRICING
+     ════════════════════════════════════════════════════════════════════════ -->
+<section class="section divider" id="pricing">
+  <div class="page">
+    <div class="text-center">
+      <span class="section-eyebrow">Pricing</span>
+      <h2 class="section-title">Simple, honest pricing</h2>
+      <p class="section-sub">Buy once. Use forever. No subscriptions, no renewals, no gotchas.</p>
+    </div>
+
+    <div class="pricing-grid">
+
+      <!-- Free -->
+      <div class="pricing-card">
+        <div class="p-tier">Free</div>
+        <div class="p-price">$0</div>
+        <div class="p-note">Always free · no account needed</div>
+        <ul class="p-list">
+          <li class="ok">Month &amp; week calendar view</li>
+          <li class="ok">Quick-add tasks</li>
+          <li class="ok">World clocks + time scrubber</li>
+          <li class="ok">Caffeinate keep-awake</li>
+          <li class="ok">iCloud Calendar (read-only)</li>
+          <li class="ok">4 themes &amp; clock tray mode</li>
+          <li class="off">Google &amp; Outlook calendar sync</li>
+          <li class="off">Pomodoro focus timer</li>
+          <li class="off">Meeting countdown &amp; alerts</li>
+          <li class="off">Global keyboard shortcuts</li>
+          <li class="off">8 Pro themes + accent picker</li>
+          <li class="off">Floating desktop widget</li>
+        </ul>
+        <a href="/download/arm64"
+           class="btn btn-secondary"
+           data-umami-event="pricing-download-free">Download Free</a>
+      </div>
+
+      <!-- Pro -->
+      <div class="pricing-card featured">
+        <div class="p-tier">Pro</div>
+        <div class="p-price">$14.99</div>
+        <div class="p-note">One-time purchase · yours forever</div>
+        <ul class="p-list">
+          <li class="ok">Everything in Free</li>
+          <li class="ok">Google Calendar sync (multi-account)</li>
+          <li class="ok">Microsoft Outlook Calendar</li>
+          <li class="ok">Pomodoro with conflict detection</li>
+          <li class="ok">Natural language event creation</li>
+          <li class="ok">Meeting countdown in menu bar</li>
+          <li class="ok">Global shortcuts ⌘⇧D · ⌘⇧M · ⌘⇧E</li>
+          <li class="ok">Floating desktop widget</li>
+          <li class="ok">8 Pro themes + accent color picker</li>
+          <li class="ok">Daily agenda notification</li>
+          <li class="ok">Hard meeting alerts</li>
+          <li class="ok">Event write-back (create &amp; delete)</li>
+        </ul>
+        <a href="https://daybar.lemonsqueezy.com/checkout/buy/a3356c2e-e712-4cae-8d3f-73c0c8dee60a"
+           class="btn btn-primary"
+           data-umami-event="pricing-buy-pro">Buy Pro - $14.99</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     FAQ
+     ════════════════════════════════════════════════════════════════════════ -->
+<section class="section-sm divider" id="faq">
+  <div class="page">
+    <div class="text-center">
+      <span class="section-eyebrow">FAQ</span>
+      <h2 class="section-title">Questions &amp; answers</h2>
+    </div>
+
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <button class="faq-q">Is the free version actually useful?<span class="faq-arrow">▾</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Yes. The free version includes a full month/week calendar view, quick-add tasks, world clocks with time scrubber, caffeinate keep-awake, iCloud Calendar read-only access, and four themes. It's a capable standalone tool - Pro adds deeper integrations and power-user features on top.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">How does the 7-day Pro trial work?<span class="faq-arrow">▾</span></button>
+        <div class="faq-a"><div class="faq-a-inner">When you first launch Daybar, a 7-day Pro trial starts automatically - no credit card or account needed. You get full access to every Pro feature: Google Calendar sync, Pomodoro, natural language input, global shortcuts, all 8 Pro themes, and more. After the trial, Pro features lock and Daybar continues working as a free app. Upgrade at any time for $14.99 - one-time, yours forever.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">How does Google Calendar and Outlook sync work?<span class="faq-arrow">▾</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Both use OAuth 2.0 - you authenticate via a browser window and Daybar stores your refresh token in your <strong>macOS Keychain</strong> using Electron's <code>safeStorage</code> API. Your credentials never leave your Mac. You can connect multiple accounts and revoke them at any time from Settings.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">Does iCloud work without entering a password?<span class="faq-arrow">▾</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Yes. Daybar reads iCloud Calendar and Reminders through <strong>macOS JXA (JavaScript for Automation)</strong> - the same system bridge that Calendar.app uses. As long as you're signed into iCloud on your Mac, it just works. No credentials, no tokens, no setup required.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">What are the system requirements?<span class="faq-arrow">▾</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Daybar requires <strong>macOS 12 Monterey or later</strong> and an <strong>Apple Silicon Mac (M1 or later)</strong>. The current release is ARM64 only - there is no Intel build at this time. If you're on an Intel Mac, stay tuned for a future release.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">Does it support Microsoft Outlook or Exchange?<span class="faq-arrow">▾</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Yes, Microsoft Outlook Calendar is a Pro feature. It connects via Microsoft OAuth 2.0 and supports multiple accounts. Note: on-premises Exchange is not currently supported - only Microsoft 365 and personal Outlook accounts work at this time.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">Can I connect multiple Google accounts?<span class="faq-arrow">▾</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Yes - Pro supports multiple Google accounts, each with their own color. You can add, remove, and toggle individual accounts and calendars from the Settings panel. Events from all connected accounts appear together in the unified timeline.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">Seriously, no subscriptions ever?<span class="faq-arrow">▾</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Absolutely none. $14.99 once - that's it. Pro features, all future updates, and your license key work on any Mac you own. There's no annual renewal, no "Daybar 2.0" upgrade fee, and no features that lock after 30 days. What you buy stays yours.</div></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     DOWNLOAD CTA
+     ════════════════════════════════════════════════════════════════════════ -->
+<section class="cta-sec divider">
+  <div class="page">
+    <h2>Ready to reclaim your menu bar?</h2>
+    <p>Download free and see your whole day in one click. Upgrade to Pro whenever you're ready.</p>
+    <div class="cta-btns">
+      <a href="/thank-you.html?dmg=/download/arm64"
+         class="btn btn-secondary btn-lg"
+         data-umami-event="cta-download-free">Download Free (Apple Silicon)</a>
+      <a href="https://daybar.lemonsqueezy.com/checkout/buy/a3356c2e-e712-4cae-8d3f-73c0c8dee60a"
+         class="btn btn-primary btn-lg"
+         data-umami-event="cta-get-pro">Get Pro - $14.99</a>
+    </div>
+    <p class="cta-note">Apple Silicon &amp; Intel Mac &nbsp;·&nbsp; macOS 12+ &nbsp;·&nbsp; Instant download</p>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     FOOTER
+     ════════════════════════════════════════════════════════════════════════ -->
+<footer>
+  <div class="foot-inner">
+    <div class="foot-links">
+      <a href="docs/index.html">Docs</a>
+      <a href="https://github.com/vietch2612/chronosbar" target="_blank" rel="noopener">GitHub</a>
+      <a href="mailto:support@daybar.app">Support</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
+    </div>
+    <span class="foot-copy">&copy; 2026 Daybar. Built with care for Mac users.</span>
+  </div>
+</footer>
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     SCRIPTS
+     ════════════════════════════════════════════════════════════════════════ -->
+<script>
+  // FAQ accordion
+  document.querySelectorAll('.faq-q').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq-item');
+      const answer = item.querySelector('.faq-a');
+      const isOpen = item.classList.contains('open');
+
+      document.querySelectorAll('.faq-item.open').forEach(el => {
+        el.classList.remove('open');
+        el.querySelector('.faq-a').style.maxHeight = null;
+      });
+
+      if (!isOpen) {
+        item.classList.add('open');
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+      }
+    });
+  });
+
+  // Scroll-triggered fade-up animations
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.07 });
+  document.querySelectorAll('.fade-up').forEach(el => io.observe(el));
+
+  // Smooth anchor scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const t = document.querySelector(a.getAttribute('href'));
+      if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    });
+  });
+
+  // ── Download button: OS + architecture detection ──────────────────────────
+  // Downloads proxy through Netlify functions → private GitHub releases.
+  // Always serves the latest release — no need to update URLs per version.
+  (function () {
+    var ARM64_DMG = '/download/arm64';
+    var X64_DMG   = '/download/x64';
+
+    var isMac = /Mac/.test(navigator.platform) || /Mac OS X/.test(navigator.userAgent);
+
+    // Non-Mac visitors: disable all download CTAs
+    if (!isMac) {
+      document.querySelectorAll('a[data-umami-event*="download-free"]').forEach(function (a) {
+        a.textContent = 'macOS Only 🍎';
+        a.style.opacity = '0.6';
+        a.style.pointerEvents = 'none';
+        a.removeAttribute('href');
+      });
+      return;
+    }
+
+    // Detect Intel Mac via WebGL GPU renderer
+    // Apple Silicon reports "Apple M1/M2/…" — no Intel/AMD/NVIDIA in the string
+    function isIntelMac() {
+      try {
+        var canvas = document.createElement('canvas');
+        var gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+        if (!gl) return false;
+        var ext = gl.getExtension('WEBGL_debug_renderer_info');
+        if (!ext) return false;
+        var renderer = gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) || '';
+        return /Intel|AMD|NVIDIA|Radeon/i.test(renderer);
+      } catch (e) {
+        return false;
+      }
+    }
+
+    if (!isIntelMac()) return; // Apple Silicon — arm64 links are already correct
+
+    // ── Intel Mac: swap every download link to the x64 build ───────────────
+    document.querySelectorAll('a[data-umami-event*="download-free"]').forEach(function (a) {
+      var href = a.getAttribute('href') || '';
+
+      if (href.indexOf('thank-you.html') !== -1) {
+        // Link pattern: /thank-you.html?dmg=https://...arm64.dmg
+        var url = new URL(href, window.location.origin);
+        var dmg = url.searchParams.get('dmg') || '';
+        if (dmg === ARM64_DMG) {
+          url.searchParams.set('dmg', X64_DMG);
+          a.setAttribute('href', url.pathname + url.search);
+        }
+      } else if (href === ARM64_DMG) {
+        a.setAttribute('href', X64_DMG);
+      }
+    });
+
+    // "Download Free (Apple Silicon)" → "Download Free (Intel Mac)"
+    document.querySelectorAll('[data-umami-event="cta-download-free"]').forEach(function (a) {
+      a.textContent = a.textContent.replace('Apple Silicon', 'Intel Mac');
+    });
+
+    // Update chip/note text for Intel visitors
+    document.querySelectorAll('.hero-note, .cta-note').forEach(function (el) {
+      el.innerHTML = el.innerHTML.replace(
+        /Apple Silicon &amp; Intel Mac|Apple Silicon &amp; Intel Mac/,
+        'Intel Mac (x64)'
+      );
+    });
+  }());
+</script>
+
+<!-- Umami Analytics -->
+<script defer src="https://analytics.daybar.app/script.js" data-website-id="0cef9502-2177-4ade-8b63-9b13c53ff187"></script>
+
+</body>
+</html>

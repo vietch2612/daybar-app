@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <!-- Background gradient: deep navy → near-black -->
+    <linearGradient id="bg" x1="0" y1="0" x2="0.65" y2="1">
+      <stop offset="0%" stop-color="#222c3e"/>
+      <stop offset="100%" stop-color="#0d1117"/>
+    </linearGradient>
+
+    <!-- Arc gradient: warm gold → deep orange -->
+    <linearGradient id="arc" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#f6cd3a"/>
+      <stop offset="55%" stop-color="#f0943e"/>
+      <stop offset="100%" stop-color="#e8602a"/>
+    </linearGradient>
+
+    <!-- Bar gradient: solid orange → fade right -->
+    <linearGradient id="bar-grad" x1="108" y1="0" x2="404" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#f0883e" stop-opacity="1"/>
+      <stop offset="70%" stop-color="#f0883e" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#f0883e" stop-opacity="0.25"/>
+    </linearGradient>
+
+    <!-- Soft glow filter for sun -->
+    <filter id="sun-glow" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="14" result="blur"/>
+    </filter>
+
+    <!-- Soft glow filter for arc -->
+    <filter id="arc-glow" x="-5%" y="-60%" width="110%" height="220%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="9" result="blur"/>
+    </filter>
+  </defs>
+
+  <!-- ── Background squircle ─────────────────────────────────────── -->
+  <rect width="512" height="512" rx="112" ry="112" fill="url(#bg)"/>
+  <!-- Glass rim highlight -->
+  <rect width="512" height="512" rx="112" ry="112" fill="none"
+        stroke="rgba(255,255,255,0.075)" stroke-width="1.5"/>
+
+  <!-- ── Ambient sun glow (behind everything) ───────────────────── -->
+  <circle cx="256" cy="160" r="62" fill="#f59a30" opacity="0.14"
+          filter="url(#sun-glow)"/>
+
+  <!-- ── Arc glow layer ─────────────────────────────────────────── -->
+  <!-- Arc: center (256,308), radius 148 → endpoints (108,308) and (404,308) -->
+  <path d="M108,308 A148,148,0,0,1,404,308"
+        fill="none" stroke="#f07030" stroke-width="20"
+        stroke-linecap="round" opacity="0.22"
+        filter="url(#arc-glow)"/>
+
+  <!-- ── Main arc (solar path / D-form) ────────────────────────── -->
+  <path d="M108,308 A148,148,0,0,1,404,308"
+        fill="none" stroke="url(#arc)"
+        stroke-width="17" stroke-linecap="round"/>
+
+  <!-- ── Horizon tick marks at arc endpoints ───────────────────── -->
+  <line x1="108" y1="298" x2="108" y2="318"
+        stroke="#f0883e" stroke-width="5" stroke-linecap="round" opacity="0.55"/>
+  <line x1="404" y1="298" x2="404" y2="318"
+        stroke="#e8602a" stroke-width="5" stroke-linecap="round" opacity="0.55"/>
+
+  <!-- ── Sun dot (at arc apex) ──────────────────────────────────── -->
+  <!-- Glow halo -->
+  <circle cx="256" cy="160" r="26" fill="#f7d040" opacity="0.28"
+          filter="url(#sun-glow)"/>
+  <!-- Sun body -->
+  <circle cx="256" cy="160" r="22" fill="#f6cd3a"/>
+  <!-- Inner specular highlight -->
+  <circle cx="249" cy="153" r="8" fill="rgba(255,251,210,0.62)"/>
+
+  <!-- ── Timeline bars (event / menu-bar metaphor) ─────────────── -->
+  <!-- Bar 1 — full width, boldest -->
+  <rect x="108" y="340" width="296" height="15" rx="7.5"
+        fill="url(#bar-grad)" opacity="0.95"/>
+
+  <!-- Bar 2 — 68% width -->
+  <rect x="108" y="369" width="202" height="15" rx="7.5"
+        fill="url(#bar-grad)" opacity="0.62"/>
+
+  <!-- Bar 3 — 38% width -->
+  <rect x="108" y="398" width="114" height="15" rx="7.5"
+        fill="url(#bar-grad)" opacity="0.34"/>
+</svg>

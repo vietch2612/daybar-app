@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy - Daybar</title>
+  <meta name="description" content="Daybar Privacy Policy. We collect no personal data. Your calendar tokens stay on your device." />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="0cef9502-2177-4ade-8b63-9b13c53ff187"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --page-bg:    #080c10;
+      --surface:    rgba(255,255,255,0.04);
+      --border:     rgba(255,255,255,0.07);
+      --border-b:   rgba(255,255,255,0.14);
+      --text:       #c9d1d9;
+      --text-h:     #f0f6fc;
+      --muted:      rgba(201,209,217,0.5);
+      --accent:     #f0883e;
+      --accent-dim: rgba(240,136,62,0.10);
+      --page-width: 52rem;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: Inter, sans-serif; background: var(--page-bg); color: var(--text); line-height: 1.75; -webkit-font-smoothing: antialiased; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Nav ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      border-bottom: 1px solid var(--border);
+      background: rgba(8,12,16,0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+    .nav-inner {
+      max-width: 72rem; margin: 0 auto; padding: 0 2rem;
+      height: 56px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 0.5rem; font-weight: 700; font-size: 1rem; color: var(--text-h); text-decoration: none; }
+    .nav-logo svg { width: 24px; height: 24px; }
+    .nav-back { font-size: 0.82rem; color: var(--muted); display: flex; align-items: center; gap: 0.35rem; }
+    .nav-back:hover { color: var(--accent); text-decoration: none; }
+
+    /* ── Hero ── */
+    .hero {
+      padding: 4rem 2rem 3rem;
+      max-width: var(--page-width); margin: 0 auto;
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-tag {
+      display: inline-block; margin-bottom: 1rem;
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--accent); background: var(--accent-dim);
+      padding: 0.3rem 0.75rem; border-radius: 99px;
+      border: 1px solid rgba(240,136,62,0.2);
+    }
+    .hero h1 { font-size: clamp(1.75rem, 4vw, 2.5rem); color: var(--text-h); margin-bottom: 0.75rem; }
+    .hero-meta { font-size: 0.82rem; color: var(--muted); }
+
+    /* ── Content ── */
+    .content { max-width: var(--page-width); margin: 0 auto; padding: 3rem 2rem 5rem; }
+
+    .toc {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem 2rem;
+      margin-bottom: 3rem;
+    }
+    .toc h2 { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 0.75rem; font-weight: 600; }
+    .toc ol { padding-left: 1.25rem; }
+    .toc li { font-size: 0.88rem; margin-bottom: 0.35rem; }
+    .toc a { color: var(--text); }
+    .toc a:hover { color: var(--accent); }
+
+    section { margin-bottom: 3rem; }
+    section h2 {
+      font-size: 1.2rem; color: var(--text-h); margin-bottom: 1rem;
+      padding-bottom: 0.5rem; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    section h2 .num {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 24px; height: 24px; border-radius: 6px;
+      background: var(--accent-dim); color: var(--accent);
+      font-size: 0.72rem; font-weight: 700; flex-shrink: 0;
+    }
+    section p { margin-bottom: 0.85rem; font-size: 0.95rem; }
+    section ul { padding-left: 1.5rem; margin-bottom: 0.85rem; }
+    section ul li { font-size: 0.95rem; margin-bottom: 0.4rem; }
+
+    .callout {
+      display: flex; gap: 0.85rem; align-items: flex-start;
+      background: var(--accent-dim);
+      border: 1px solid rgba(240,136,62,0.2);
+      border-radius: 10px; padding: 1rem 1.25rem; margin-bottom: 1.5rem;
+    }
+    .callout-icon { font-size: 1.1rem; line-height: 1; margin-top: 0.1rem; flex-shrink: 0; }
+    .callout p { margin: 0; font-size: 0.9rem; }
+    .callout strong { color: var(--text-h); }
+
+    .data-table {
+      width: 100%; border-collapse: collapse; font-size: 0.88rem; margin-bottom: 1.25rem;
+    }
+    .data-table th {
+      text-align: left; padding: 0.6rem 1rem;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border-b);
+      color: var(--text-h); font-weight: 600; font-size: 0.8rem;
+    }
+    .data-table td {
+      padding: 0.6rem 1rem;
+      border: 1px solid var(--border);
+      vertical-align: top;
+    }
+    .data-table tr:hover td { background: rgba(255,255,255,0.02); }
+    .tag-no  { color: #3ddbd9; font-weight: 600; }
+    .tag-yes { color: var(--accent); font-weight: 600; }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem;
+    }
+    .foot-inner {
+      max-width: var(--page-width); margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+    }
+    .foot-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+    .foot-links a { font-size: 0.82rem; color: var(--muted); }
+    .foot-links a:hover { color: var(--accent); text-decoration: none; }
+    .foot-copy { font-size: 0.78rem; color: var(--muted); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="index.html">
+      <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="28" height="28" rx="7" fill="#f0883e"/>
+        <rect x="6" y="6" width="7" height="7" rx="1.5" fill="white"/>
+        <rect x="15" y="6" width="7" height="7" rx="1.5" fill="white" opacity="0.6"/>
+        <rect x="6" y="15" width="7" height="7" rx="1.5" fill="white" opacity="0.6"/>
+        <rect x="15" y="15" width="7" height="7" rx="1.5" fill="white" opacity="0.3"/>
+      </svg>
+      Daybar
+    </a>
+    <a class="nav-back" href="index.html">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Back to home
+    </a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-tag">Legal</div>
+  <h1>Privacy Policy</h1>
+  <p class="hero-meta">Effective date: March 21, 2026 &nbsp;&middot;&nbsp; Last updated: March 21, 2026</p>
+</div>
+
+<div class="content">
+
+  <div class="callout">
+    <span class="callout-icon">🔒</span>
+    <p><strong>Short version:</strong> Daybar does not collect, store, or sell your personal data. Your calendar credentials stay on your device, encrypted in macOS Keychain. We never see your events, tasks, or contacts.</p>
+  </div>
+
+  <div class="toc">
+    <h2>Contents</h2>
+    <ol>
+      <li><a href="#s1">Who We Are</a></li>
+      <li><a href="#s2">What Data We Collect</a></li>
+      <li><a href="#s3">What We Do Not Collect</a></li>
+      <li><a href="#s4">Calendar Integrations</a></li>
+      <li><a href="#s5">License and Purchases</a></li>
+      <li><a href="#s6">Website Analytics</a></li>
+      <li><a href="#s7">Data Storage and Security</a></li>
+      <li><a href="#s8">Third-Party Services</a></li>
+      <li><a href="#s9">Children's Privacy</a></li>
+      <li><a href="#s10">Your Rights (GDPR / CCPA)</a></li>
+      <li><a href="#s11">Changes to This Policy</a></li>
+      <li><a href="#s12">Contact</a></li>
+    </ol>
+  </div>
+
+  <section id="s1">
+    <h2><span class="num">1</span> Who We Are</h2>
+    <p>Daybar ("we", "our", "us") is an independently developed macOS application created by Viet Cao, an individual developer. For privacy inquiries contact us at <a href="mailto:support@daybar.app">support@daybar.app</a>.</p>
+  </section>
+
+  <section id="s2">
+    <h2><span class="num">2</span> What Data We Collect</h2>
+    <p>Daybar operates with a <strong>local-first, privacy-by-default</strong> architecture. The following summarizes all data handling:</p>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Data Type</th>
+          <th>Collected?</th>
+          <th>Where Stored</th>
+          <th>Shared?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Calendar events and tasks</td>
+          <td class="tag-no">Never</td>
+          <td>Your device only (RAM, not persisted)</td>
+          <td class="tag-no">Never</td>
+        </tr>
+        <tr>
+          <td>Google OAuth tokens</td>
+          <td class="tag-no">Device only</td>
+          <td>macOS Keychain (encrypted)</td>
+          <td class="tag-no">Never</td>
+        </tr>
+        <tr>
+          <td>Microsoft OAuth tokens</td>
+          <td class="tag-no">Device only</td>
+          <td>macOS Keychain (encrypted)</td>
+          <td class="tag-no">Never</td>
+        </tr>
+        <tr>
+          <td>License key</td>
+          <td class="tag-yes">Yes</td>
+          <td>Your device (localStorage)</td>
+          <td class="tag-yes">Lemon Squeezy (for validation)</td>
+        </tr>
+        <tr>
+          <td>Purchase email</td>
+          <td class="tag-yes">Yes</td>
+          <td>Lemon Squeezy (payment processor)</td>
+          <td class="tag-no">Not by us</td>
+        </tr>
+        <tr>
+          <td>App preferences / settings</td>
+          <td class="tag-no">Device only</td>
+          <td>macOS localStorage</td>
+          <td class="tag-no">Never</td>
+        </tr>
+        <tr>
+          <td>Website visit analytics</td>
+          <td class="tag-yes">Anonymized</td>
+          <td>Umami Cloud (EU-hosted)</td>
+          <td class="tag-no">Never</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="s3">
+    <h2><span class="num">3</span> What We Do Not Collect</h2>
+    <p>We explicitly do <strong>not</strong> collect, transmit, or store:</p>
+    <ul>
+      <li>Your name, email address, or contact information (unless you email us for support)</li>
+      <li>Your calendar events, meeting titles, or attendees</li>
+      <li>Your tasks or to-do items</li>
+      <li>Your location or IP address via the app</li>
+      <li>Device identifiers, advertising IDs, or fingerprints</li>
+      <li>Usage telemetry or crash reports (we plan to add opt-in crash reporting in a future version)</li>
+    </ul>
+    <p>There is no Daybar server that receives your calendar data. The app communicates directly from your Mac to Google, Microsoft, or Apple servers using your credentials.</p>
+  </section>
+
+  <section id="s4">
+    <h2><span class="num">4</span> Calendar Integrations</h2>
+    <p><strong>Google Calendar:</strong> Daybar uses OAuth 2.0 to request read and write access to your Google Calendar. Your access token and refresh token are encrypted and stored exclusively in macOS Keychain using Electron's <code>safeStorage</code> API (AES-256 backed by your system login keychain). Daybar communicates directly with the Google Calendar API from your Mac - no data is routed through our infrastructure.</p>
+    <p><strong>Microsoft Outlook / Office 365:</strong> The same principles apply. Daybar uses the PKCE OAuth 2.0 flow (no client secret required). Tokens are stored in macOS Keychain. Microsoft Graph API requests are made directly from your device.</p>
+    <p><strong>Apple Calendar (iCloud):</strong> Daybar accesses Apple Calendar via macOS EventKit / AppleScript. No data leaves your device for this integration. You may be prompted by macOS to grant calendar access permission.</p>
+    <p>You can revoke Daybar's calendar access at any time by removing the account from Daybar Settings, or directly from your Google / Microsoft account security settings.</p>
+  </section>
+
+  <section id="s5">
+    <h2><span class="num">5</span> License and Purchases</h2>
+    <p>Daybar Pro is sold via <strong>Lemon Squeezy</strong> (a Merchant of Record). When you purchase:</p>
+    <ul>
+      <li>Lemon Squeezy collects your payment details, email, and billing address. Lemon Squeezy is the legal seller and processes all tax (including EU VAT) on our behalf. See <a href="https://www.lemonsqueezy.com/privacy" target="_blank" rel="noopener">Lemon Squeezy's Privacy Policy</a>.</li>
+      <li>Your license key is stored locally on your device. Daybar sends the key and a device identifier to Lemon Squeezy's License API solely to validate your purchase. No other data is included in this request.</li>
+      <li>We receive a summary notification of your purchase (a generated order ID) but do not receive your payment card details, full name, or address.</li>
+    </ul>
+  </section>
+
+  <section id="s6">
+    <h2><span class="num">6</span> Website Analytics</h2>
+    <p>Our marketing website (<a href="https://daybar.app">daybar.app</a>) uses <strong>Umami Analytics</strong>, a privacy-focused, open-source analytics platform.</p>
+    <ul>
+      <li><strong>No cookies</strong> are set</li>
+      <li><strong>No personal data</strong> is collected</li>
+      <li>No cross-site tracking</li>
+      <li>Data is hosted in the EU (Frankfurt) and is not shared with third parties</li>
+      <li>Umami collects only: page views, referrer (which website linked to us), browser type, country (derived from anonymized IP - IP address is never stored), and screen size</li>
+    </ul>
+    <p>This analytics is compliant with GDPR, PECR, and CCPA with no consent banner required.</p>
+  </section>
+
+  <section id="s7">
+    <h2><span class="num">7</span> Data Storage and Security</h2>
+    <p>All sensitive data stored by Daybar on your device uses macOS platform security:</p>
+    <ul>
+      <li><strong>OAuth tokens</strong> - stored via Electron <code>safeStorage</code>, which uses AES-256 encryption backed by your macOS login keychain. Only Daybar can decrypt these values.</li>
+      <li><strong>Settings and preferences</strong> - stored in <code>localStorage</code> within Electron's app partition (not accessible to other applications or websites).</li>
+      <li><strong>License key</strong> - stored in <code>localStorage</code>, a string that can only validate your purchase and contains no personal information.</li>
+    </ul>
+    <p>Daybar does not operate any servers, databases, or cloud infrastructure that stores user data. We cannot access your data because we do not receive it.</p>
+  </section>
+
+  <section id="s8">
+    <h2><span class="num">8</span> Third-Party Services</h2>
+    <p>Daybar interacts with the following third-party services on your behalf. Each has its own privacy policy:</p>
+    <ul>
+      <li><a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Privacy Policy</a> - Google Calendar API</li>
+      <li><a href="https://privacy.microsoft.com/" target="_blank" rel="noopener">Microsoft Privacy Statement</a> - Microsoft Graph / Outlook Calendar</li>
+      <li><a href="https://www.apple.com/privacy/" target="_blank" rel="noopener">Apple Privacy Policy</a> - Apple Calendar / iCloud</li>
+      <li><a href="https://www.lemonsqueezy.com/privacy" target="_blank" rel="noopener">Lemon Squeezy Privacy Policy</a> - Payment processing</li>
+      <li><a href="https://umami.is/privacy" target="_blank" rel="noopener">Umami Privacy Policy</a> - Website analytics</li>
+    </ul>
+  </section>
+
+  <section id="s9">
+    <h2><span class="num">9</span> Children's Privacy</h2>
+    <p>Daybar is not directed to children under the age of 13 (or 16 in the EU under GDPR). We do not knowingly collect personal information from children. If you believe a child has provided us personal information, please contact us at <a href="mailto:support@daybar.app">support@daybar.app</a> and we will delete it promptly.</p>
+  </section>
+
+  <section id="s10">
+    <h2><span class="num">10</span> Your Rights (GDPR / CCPA)</h2>
+    <p>Because Daybar does not collect or store personal data on our servers, most traditional data rights (access, portability, deletion) are satisfied automatically - your data stays on your device and you control it entirely.</p>
+    <p>However, for any data held by our payment processor (Lemon Squeezy) as part of a purchase:</p>
+    <ul>
+      <li><strong>Right to access</strong> - email <a href="mailto:support@daybar.app">support@daybar.app</a> and we will provide any information we hold about your purchase</li>
+      <li><strong>Right to deletion</strong> - we will delete your purchase record and deactivate your license upon request. Note: Lemon Squeezy retains transaction records as required by law.</li>
+      <li><strong>Right to opt out</strong> - website analytics can be opted out of by enabling "Do Not Track" in your browser. Umami respects this signal.</li>
+    </ul>
+    <p>To exercise any rights, contact us at <a href="mailto:support@daybar.app">support@daybar.app</a>. We will respond within 30 days.</p>
+  </section>
+
+  <section id="s11">
+    <h2><span class="num">11</span> Changes to This Policy</h2>
+    <p>We may update this Privacy Policy as the app evolves. When we make significant changes, we will update the "Last updated" date at the top of this page. Continued use of Daybar after changes constitutes acceptance of the updated policy.</p>
+    <p>We will never change this policy in a way that begins collecting your calendar data or personal information without your explicit consent.</p>
+  </section>
+
+  <section id="s12">
+    <h2><span class="num">12</span> Contact</h2>
+    <p>For privacy questions, data requests, or concerns:</p>
+    <ul>
+      <li><strong>Email:</strong> <a href="mailto:support@daybar.app">support@daybar.app</a></li>
+      <li><strong>Response time:</strong> Within 5 business days</li>
+    </ul>
+  </section>
+
+</div>
+
+<footer>
+  <div class="foot-inner">
+    <div class="foot-links">
+      <a href="index.html">Home</a>
+      <a href="docs/index.html">Docs</a>
+      <a href="https://github.com/vietch2612/chronosbar" target="_blank" rel="noopener">GitHub</a>
+      <a href="mailto:support@daybar.app">Support</a>
+      <a href="privacy.html" aria-current="page">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
+    </div>
+    <span class="foot-copy">&copy; 2026 Daybar. All rights reserved.</span>
+  </div>
+</footer>
+
+</body>
+</html>
