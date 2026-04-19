@@ -660,6 +660,9 @@
         </a>
       </div>
       <p class="hero-note">Apple Silicon &amp; Intel Mac &nbsp;·&nbsp; macOS 12+ &nbsp;·&nbsp; Instant download</p>
+      <p class="hero-note" style="margin-top:0.35rem;font-size:0.72rem;">
+        Intel Mac not detected? <a href="/download/x64" data-umami-event="hero-download-intel-fallback" style="color:var(--accent);opacity:0.8;">Download Intel build ↓</a>
+      </p>
       <p class="hero-guarantee">✓ &nbsp;7-day money-back guarantee &nbsp;&nbsp;·&nbsp;&nbsp; ✓ &nbsp;No account required &nbsp;&nbsp;·&nbsp;&nbsp; ✓ &nbsp;Private by default</p>
     </div>
 
@@ -1208,53 +1211,58 @@
       return;
     }
 
-    // Detect Intel Mac via WebGL GPU renderer
-    // Apple Silicon reports "Apple M1/M2/…" — no Intel/AMD/NVIDIA in the string
-    function isIntelMac() {
-      try {
-        var canvas = document.createElement('canvas');
-        var gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
-        if (!gl) return false;
-        var ext = gl.getExtension('WEBGL_debug_renderer_info');
-        if (!ext) return false;
-        var renderer = gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) || '';
-        return /Intel|AMD|NVIDIA|Radeon/i.test(renderer);
-      } catch (e) {
-        return false;
+    // Detect architecture. Returns 'intel', 'arm64', or null (unknown).
+    // Method 1: userAgentData (Chrome/Edge) — reliable, no privacy restrictions
+    // Method 2: WebGL renderer — works in Safari, may be blocked in Firefox
+    function detectArch(callback) {
+      if (navigator.userAgentData && navigator.userAgentData.getHighEntropyValues) {
+        navigator.userAgentData.getHighEntropyValues(['architecture']).then(function (ua) {
+          if (ua.architecture === 'arm') callback('arm64');
+          else if (ua.architecture === 'x86') callback('intel');
+          else callback(detectArchViaWebGL());
+        }).catch(function () { callback(detectArchViaWebGL()); });
+      } else {
+        callback(detectArchViaWebGL());
       }
     }
 
-    if (!isIntelMac()) return; // Apple Silicon — arm64 links are already correct
+    function detectArchViaWebGL() {
+      try {
+        var canvas = document.createElement('canvas');
+        var gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+        if (!gl) return null;
+        var ext = gl.getExtension('WEBGL_debug_renderer_info');
+        if (!ext) return null;
+        var renderer = gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) || '';
+        if (/Apple M\d/i.test(renderer)) return 'arm64';
+        if (/Intel|AMD|NVIDIA|Radeon/i.test(renderer)) return 'intel';
+        return null;
+      } catch (e) { return null; }
+    }
 
-    // ── Intel Mac: swap every download link to the x64 build ───────────────
-    document.querySelectorAll('a[data-umami-event*="download-free"]').forEach(function (a) {
-      var href = a.getAttribute('href') || '';
-
-      if (href.indexOf('thank-you.html') !== -1) {
-        var url = new URL(href, window.location.origin);
-        var dmg = url.searchParams.get('dmg') || '';
-        if (dmg === ARM64_DMG) {
-          url.searchParams.set('dmg', X64_DMG);
-          a.setAttribute('href', url.pathname + url.search);
+    function swapToIntel() {
+      document.querySelectorAll('a[data-umami-event*="download-free"]').forEach(function (a) {
+        var href = a.getAttribute('href') || '';
+        if (href.indexOf('thank-you.html') !== -1) {
+          var url = new URL(href, window.location.origin);
+          if (url.searchParams.get('dmg') === ARM64_DMG) {
+            url.searchParams.set('dmg', X64_DMG);
+            a.setAttribute('href', url.pathname + url.search);
+          }
+        } else if (href === ARM64_DMG) {
+          a.setAttribute('href', X64_DMG);
         }
-      } else if (href === ARM64_DMG) {
-        a.setAttribute('href', X64_DMG);
-      }
-      // Update Umami arch property so analytics shows arm64 vs x64 split
-      a.setAttribute('data-umami-event-arch', 'x64');
-    });
+        a.setAttribute('data-umami-event-arch', 'x64');
+      });
+      // Hide the manual Intel fallback link — auto-detection worked
+      document.querySelectorAll('[data-umami-event="hero-download-intel-fallback"]').forEach(function (el) {
+        el.parentElement.style.display = 'none';
+      });
+    }
 
-    // "Download Free (Apple Silicon)" → "Download Free (Intel Mac)"
-    document.querySelectorAll('[data-umami-event="cta-download-free"]').forEach(function (a) {
-      a.textContent = a.textContent.replace('Apple Silicon', 'Intel Mac');
-    });
-
-    // Update chip/note text for Intel visitors
-    document.querySelectorAll('.hero-note, .cta-note').forEach(function (el) {
-      el.innerHTML = el.innerHTML.replace(
-        /Apple Silicon &amp; Intel Mac|Apple Silicon &amp; Intel Mac/,
-        'Intel Mac (x64)'
-      );
+    detectArch(function (arch) {
+      if (arch === 'intel') swapToIntel();
+      // arm64 or null: arm64 links already correct; null keeps fallback link visible
     });
   }());
 </script>
