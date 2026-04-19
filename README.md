@@ -23,6 +23,12 @@ Think Fantastical, but without the annual subscription. $14.99, once, forever.
 
 ---
 
+<div align="center">
+  <img src="public/demo.png" alt="Daybar — macOS menu bar calendar app" width="320" />
+</div>
+
+---
+
 ## Screenshots
 
 | | | |
