@@ -3,15 +3,55 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Daybar - Your day, always one click away</title>
-  <meta name="description" content="The ultimate minimal macOS menu bar calendar. Sync Google, Outlook, and iCloud. Join meetings in one click. No subscriptions—just $14.99 for life." />
-  <meta property="og:title" content="Daybar - macOS Menu Bar Calendar" />
-  <meta property="og:description" content="The ultimate minimal macOS menu bar calendar. Sync Google, Outlook, and iCloud. Join meetings in one click. No subscriptions—just $14.99 for life." />
+  <title>Daybar — macOS & Windows Menu Bar Calendar, Tasks & Pomodoro</title>
+  <meta name="description" content="Daybar puts your calendar, tasks, Pomodoro timer, and world clock one click away in the menu bar. Google, Outlook & iCloud sync. No subscriptions — $14.99 lifetime." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://daybar.app" />
+  <meta name="theme-color" content="#080c10" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Daybar" />
+  <meta property="og:url" content="https://daybar.app" />
+  <meta property="og:title" content="Daybar — macOS & Windows Menu Bar Calendar" />
+  <meta property="og:description" content="Daybar puts your calendar, tasks, Pomodoro timer, and world clock one click away in the menu bar. Google, Outlook & iCloud sync. No subscriptions — $14.99 lifetime." />
   <meta property="og:image" content="https://daybar.app/og.svg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
+
+  <!-- Twitter / X -->
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Daybar — macOS & Windows Menu Bar Calendar" />
+  <meta name="twitter:description" content="Calendar, tasks, Pomodoro & world clock — one click away. Google, Outlook & iCloud sync. No subscriptions — $14.99 lifetime." />
   <meta name="twitter:image" content="https://daybar.app/og.svg" />
+
+  <!-- JSON-LD: SoftwareApplication (Google rich results) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Daybar",
+    "operatingSystem": ["macOS 12+", "Windows 10+"],
+    "applicationCategory": "ProductivityApplication",
+    "offers": {
+      "@type": "Offer",
+      "price": "14.99",
+      "priceCurrency": "USD",
+      "availability": "https://schema.org/InStock"
+    },
+    "description": "Daybar puts your calendar, tasks, Pomodoro timer, and world clock one click away in the macOS or Windows menu bar. Sync Google Calendar, Outlook, and iCloud. No subscriptions — one-time $14.99 Pro license.",
+    "url": "https://daybar.app",
+    "downloadUrl": "https://daybar.app/download/arm64",
+    "screenshot": "https://daybar.app/screenshots/hero-main.png",
+    "softwareVersion": "1.1.2",
+    "releaseNotes": "https://github.com/vietch2612/daybar-app/releases",
+    "author": {
+      "@type": "Person",
+      "name": "Viet Cao"
+    }
+  }
+  </script>
+
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -568,16 +608,17 @@
     Daybar
   </div>
   <nav>
-    <a href="#features">Features</a>
-    <a href="#themes">Themes</a>
-    <a href="#pricing">Pricing</a>
-    <a href="#faq">FAQ</a>
-    <a href="/docs/">Docs</a>
+    <a href="#features" data-umami-event="nav-features">Features</a>
+    <a href="#themes"   data-umami-event="nav-themes">Themes</a>
+    <a href="#pricing"  data-umami-event="nav-pricing">Pricing</a>
+    <a href="#faq"      data-umami-event="nav-faq">FAQ</a>
+    <a href="/docs/"    data-umami-event="nav-docs">Docs</a>
   </nav>
   <div class="header-ctas">
     <a href="/thank-you.html?dmg=/download/arm64"
        class="btn btn-secondary"
-       data-umami-event="header-download-free">Download Free</a>
+       data-umami-event="header-download-free"
+       data-umami-event-arch="arm64">Download Free</a>
     <a href="https://daybar.lemonsqueezy.com/checkout/buy/a3356c2e-e712-4cae-8d3f-73c0c8dee60a"
        class="btn btn-primary"
        data-umami-event="header-get-pro">Get Pro - $14.99</a>
@@ -608,7 +649,8 @@
       <div class="hero-ctas">
         <a href="/thank-you.html?dmg=/download/arm64"
            class="btn btn-primary btn-lg"
-           data-umami-event="hero-download-free">
+           data-umami-event="hero-download-free"
+           data-umami-event-arch="arm64">
           ↓ &nbsp;Download Free (7-Day Pro Trial)
         </a>
         <a href="https://daybar.lemonsqueezy.com/checkout/buy/a3356c2e-e712-4cae-8d3f-73c0c8dee60a"
@@ -983,7 +1025,8 @@
         </ul>
         <a href="/download/arm64"
            class="btn btn-secondary"
-           data-umami-event="pricing-download-free">Download Free</a>
+           data-umami-event="pricing-download-free"
+           data-umami-event-arch="arm64">Download Free</a>
       </div>
 
       <!-- Pro -->
@@ -1007,7 +1050,7 @@
         </ul>
         <a href="https://daybar.lemonsqueezy.com/checkout/buy/a3356c2e-e712-4cae-8d3f-73c0c8dee60a"
            class="btn btn-primary"
-           data-umami-event="pricing-buy-pro">Buy Pro - $14.99</a>
+           data-umami-event="pricing-get-pro">Get Pro - $14.99</a>
       </div>
 
     </div>
@@ -1080,7 +1123,8 @@
     <div class="cta-btns">
       <a href="/thank-you.html?dmg=/download/arm64"
          class="btn btn-secondary btn-lg"
-         data-umami-event="cta-download-free">Download Free (Apple Silicon)</a>
+         data-umami-event="cta-download-free"
+         data-umami-event-arch="arm64">Download Free (Apple Silicon)</a>
       <a href="https://daybar.lemonsqueezy.com/checkout/buy/a3356c2e-e712-4cae-8d3f-73c0c8dee60a"
          class="btn btn-primary btn-lg"
          data-umami-event="cta-get-pro">Get Pro - $14.99</a>
@@ -1187,7 +1231,6 @@
       var href = a.getAttribute('href') || '';
 
       if (href.indexOf('thank-you.html') !== -1) {
-        // Link pattern: /thank-you.html?dmg=https://...arm64.dmg
         var url = new URL(href, window.location.origin);
         var dmg = url.searchParams.get('dmg') || '';
         if (dmg === ARM64_DMG) {
@@ -1197,6 +1240,8 @@
       } else if (href === ARM64_DMG) {
         a.setAttribute('href', X64_DMG);
       }
+      // Update Umami arch property so analytics shows arm64 vs x64 split
+      a.setAttribute('data-umami-event-arch', 'x64');
     });
 
     // "Download Free (Apple Silicon)" → "Download Free (Intel Mac)"
