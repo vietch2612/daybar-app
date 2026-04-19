@@ -4,6 +4,25 @@ All notable changes to Daybar are documented here.
 
 ---
 
+## [1.1.5] — 2026-04-19
+
+### Fixed
+- **Refund flow** — Pro is now revoked in the main process immediately on deactivation (previously could persist up to 12 hours); refunded license keys are also disabled on LemonSqueezy to prevent reactivation after a refund
+- Events ending at midnight (e.g. 23:30–00:00) no longer show as past in the timeline
+- Apple Reminders now correctly show the "Reminder" label instead of "Task"
+- Intel Mac users are now correctly detected on the website; added a visible fallback download link for cases where detection fails (Firefox, hardened Chrome)
+- x64 DMG release asset is now labeled `Daybar-x.x.x-x64.dmg` so Intel and Apple Silicon builds are clearly distinguished on the releases page
+
+### Changed
+- Pomodoro focus sessions no longer create ghost events in Google Calendar
+- Focus (⊙) button removed from task items in the timeline
+- "Log sessions to calendar" toggle removed from Settings
+
+### Added
+- In-app analytics via PostHog — anonymous install-level events (see v1.1.2)
+
+---
+
 ## [1.1.2] — 2026-04-19
 
 ### Fixed

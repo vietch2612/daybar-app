@@ -108,6 +108,14 @@ exports.handler = async (event) => {
       };
     }
 
+    // Deactivate all license instances so refunded key can't be reused.
+    // Best-effort: don't fail the refund response if this errors.
+    await fetch('https://api.lemonsqueezy.com/v1/licenses/deactivate', {
+      method:  'POST',
+      headers: { Accept: 'application/json' },
+      body:    new URLSearchParams({ license_key: licenseKey }),
+    }).catch(err => console.warn('[refund] Could not deactivate license instances:', err?.message));
+
     return { statusCode: 200, headers: CORS, body: JSON.stringify({ refunded: true }) };
 
   } catch (err) {
