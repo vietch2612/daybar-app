@@ -4,6 +4,13 @@ All notable changes to Daybar are documented here.
 
 ---
 
+## [1.3.3] — 2026-07-07
+
+### Fixed
+- **Update dialog release notes were always one version stale** — the "Software Update" prompt read a bundled `what_new.md` from the currently-installed app describing what changed in *that* version, not the one being offered, so it perpetually lagged by a release. It now fetches the actual release notes for the target version live from GitHub, falling back to the bundled copy only if that fetch comes back empty.
+
+---
+
 ## [1.3.2] — 2026-07-07
 
 ### Fixed
