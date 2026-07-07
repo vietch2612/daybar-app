@@ -4,6 +4,13 @@ All notable changes to Daybar are documented here.
 
 ---
 
+## [1.3.2] — 2026-07-07
+
+### Fixed
+- **In-app update dialog showed stale release notes** — the bundled `what_new.md` shown in the "Software Update" prompt hadn't been updated since v1.2.0, so users on 1.3.0 being offered 1.3.1 saw year-old notes. Content is now current; this bundled-notes approach is inherently one version behind by design (it ships with the version you're currently on, describing what changed in it), so keep it updated on every release going forward.
+
+---
+
 ## [1.3.1] — 2026-07-07
 
 ### Fixed
