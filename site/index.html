@@ -43,7 +43,7 @@
     "url": "https://daybar.app",
     "downloadUrl": "https://daybar.app/download/arm64",
     "screenshot": "https://daybar.app/screenshots/hero-main.png",
-    "softwareVersion": "1.3.0",
+    "softwareVersion": "1.3.1",
     "releaseNotes": "https://github.com/vietch2612/daybar-app/releases",
     "author": {
       "@type": "Person",
@@ -66,8 +66,8 @@
       --page-bg:     #f5f5f7;
       --surface:     #ffffff;
       --surface-b:   #f0f0f2;
-      --border:      rgba(0,0,0,0.10);
-      --border-b:    rgba(0,0,0,0.18);
+      --border:      rgba(0,0,0,0.08);
+      --border-b:    rgba(0,0,0,0.14);
       --text:        #3a3a3c;
       --text-h:      #1d1d1f;
       --muted:       #6b6b72;
@@ -136,7 +136,7 @@
     /* ─── Buttons ─────────────────────────────────────────────────────── */
     .btn {
       display: inline-flex; align-items: center; gap: 0.4rem;
-      padding: 0.55rem 1.2rem; border-radius: 8px;
+      padding: 0.55rem 1.25rem; border-radius: 980px;
       font-weight: 600; font-size: 0.875rem; border: none; cursor: pointer;
       transition: all 0.2s; text-decoration: none; white-space: nowrap;
     }
@@ -146,7 +146,7 @@
     .btn-secondary:hover { background: var(--surface-b); opacity: 1; }
     .btn-ghost { background: transparent; color: var(--accent); border: 1.5px solid rgba(240,136,62,0.4); }
     .btn-ghost:hover { background: var(--accent-dim); opacity: 1; }
-    .btn-lg { padding: 0.75rem 1.75rem; font-size: 0.95rem; border-radius: 10px; }
+    .btn-lg { padding: 0.8rem 1.9rem; font-size: 0.95rem; }
 
     /* §3.4 — Hero */
     .hero {
@@ -553,6 +553,13 @@
     .fade-up.visible { animation: fadeUp 0.5s ease forwards; }
     .d1 { animation-delay: 0.1s; }
     .d2 { animation-delay: 0.2s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .hero-mockup-wrap .app-chrome { animation: none; }
+      .fade-up { opacity: 1; }
+      .fade-up.visible { animation: none; }
+    }
   </style>
 </head>
 <body>
@@ -579,7 +586,7 @@
        data-umami-event-arch="arm64">Download Free</a>
     <a href="https://daybar.lemonsqueezy.com/checkout/buy/a3356c2e-e712-4cae-8d3f-73c0c8dee60a"
        class="btn btn-primary"
-       data-umami-event="header-get-pro">Get Pro - $14.99</a>
+       data-umami-event="header-get-pro">Get Pro — $14.99</a>
   </div>
 </header>
 
@@ -596,12 +603,13 @@
         macOS &amp; Windows menu bar app &nbsp;·&nbsp; 7-day Pro trial included
       </div>
 
-      <h1>Your day, always<br>one click away</h1>
+      <h1>Your whole day,<br>one click away</h1>
 
       <p class="hero-sub">
-        Google Calendar, Outlook, and iCloud - unified in your menu bar.
-        Tasks, world clocks, a focus timer, and live meeting countdowns.<br/><br/>
-        <strong>Zero subscriptions.</strong> Buy once, use forever.
+        Google Calendar, Outlook, and iCloud — one timeline in your menu bar.
+        Add events in plain English, join meetings in one tap, and stay on time
+        across every timezone.
+        <strong style="display:block;margin-top:0.85rem;color:var(--text-h);">Pay once, own it forever. No subscription. Ever.</strong>
       </p>
 
       <div class="hero-ctas">
@@ -614,7 +622,7 @@
         <a href="https://daybar.lemonsqueezy.com/checkout/buy/a3356c2e-e712-4cae-8d3f-73c0c8dee60a"
            class="btn btn-ghost btn-lg"
            data-umami-event="hero-get-pro">
-          Get Pro - $14.99
+          Buy Pro once — $14.99
         </a>
       </div>
       <p class="hero-note" id="hero-platform-note">Apple Silicon &amp; Intel Mac &nbsp;·&nbsp; macOS 12+ &nbsp;·&nbsp; Instant download</p>
@@ -646,16 +654,29 @@
 </section>
 
 <!-- ════════════════════════════════════════════════════════════════════════
+     §3.6 SOCIAL PROOF BAR
+     ════════════════════════════════════════════════════════════════════════ -->
+<div class="proof-bar">
+  <div class="proof-inner">
+    <div class="proof-item"><span class="proof-val">$14.99</span>&nbsp; once, yours forever</div>
+    <div class="proof-item"><span class="proof-val">0</span>&nbsp; subscriptions</div>
+    <div class="proof-item"><span class="proof-val">26</span>&nbsp; meeting platforms</div>
+    <div class="proof-item"><span class="proof-val">44</span>&nbsp; world-clock cities</div>
+    <div class="proof-item"><span class="proof-val">Apple Silicon</span>&nbsp; native</div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════════════════
      §3.5 VIDEO DEMO
      Swap poster + src once videos/demo.mp4 and videos/demo-poster.png exist.
      Until then, the poster (hero-main.png) is shown as a static preview.
      ════════════════════════════════════════════════════════════════════════ -->
-<section class="demo-section section-fill divider" id="demo">
+<section class="demo-section section-fill" id="demo">
   <div class="page">
     <div class="text-center">
-      <span class="section-eyebrow">See It In Action</span>
-      <h2 class="section-title">One click. Your whole day.</h2>
-      <p class="section-sub">Watch how Daybar fits into your day — from the tray icon to a quick-add in under 5 seconds.</p>
+      <span class="section-eyebrow">Watch It Work</span>
+      <h2 class="section-title">From tray icon to scheduled in 5 seconds</h2>
+      <p class="section-sub">Click the menu bar, type <em>"lunch tomorrow at noon"</em>, hit Enter. That's the whole workflow.</p>
     </div>
     <div class="demo-frame fade-up">
       <!-- TODO: swap <img> for <video autoplay muted loop playsinline> once videos/demo.mp4 is ready -->
@@ -672,26 +693,13 @@
 </section>
 
 <!-- ════════════════════════════════════════════════════════════════════════
-     §3.6 SOCIAL PROOF BAR
-     ════════════════════════════════════════════════════════════════════════ -->
-<div class="proof-bar">
-  <div class="proof-inner">
-    <div class="proof-item"><span class="proof-val">$14.99</span>&nbsp; one-time</div>
-    <div class="proof-item"><span class="proof-val">0</span>&nbsp; subscriptions</div>
-    <div class="proof-item"><span class="proof-val">12</span>&nbsp; themes</div>
-    <div class="proof-item"><span class="proof-val">26</span>&nbsp; meeting platforms</div>
-    <div class="proof-item"><span class="proof-val">Apple Silicon</span>&nbsp; native</div>
-  </div>
-</div>
-
-<!-- ════════════════════════════════════════════════════════════════════════
      §3.7 SCREENSHOTS
      TODO: swap each screenshot to its *-light.png counterpart once captured.
      ════════════════════════════════════════════════════════════════════════ -->
 <section class="section-sm divider" id="screenshots">
   <div class="page">
     <div class="text-center">
-      <span class="section-eyebrow">See It In Action</span>
+      <span class="section-eyebrow">Screenshots</span>
       <h2 class="section-title">Real screenshots, no mockups</h2>
       <p class="section-sub">Everything you see here is captured from the actual Daybar app.</p>
     </div>
@@ -766,28 +774,28 @@
       <!-- Row 1: 2 + 1 -->
       <div class="feat-card col-2 featured-feat">
         <span class="feat-icon">📅</span>
-        <h3>Calendar Sync<span class="badge badge-pro">Pro</span></h3>
-        <p>Connect Google Calendar (multi-account), Microsoft Outlook, and iCloud in one unified timeline. OAuth tokens are stored securely in your macOS Keychain - credentials never leave your Mac.</p>
+        <h3>All your calendars, one timeline<span class="badge badge-pro">Pro</span></h3>
+        <p>Google Calendar (multi-account), Microsoft Outlook, and iCloud — merged into a single day view. Tokens are encrypted on your device; your credentials never touch our servers, because we don't have any.</p>
       </div>
 
       <div class="feat-card">
         <span class="feat-icon">⏱</span>
-        <h3>Meeting Countdown<span class="badge badge-pro">Pro</span></h3>
-        <p>Replace the tray icon with a live countdown to your next meeting. When it starts, Daybar surfaces the Zoom, Meet, or Teams link - one shortcut to join without hunting.</p>
+        <h3>Never walk in late<span class="badge badge-pro">Pro</span></h3>
+        <p>Your menu bar shows a live countdown to your next meeting — "Next Meeting · 12m" — so you feel the clock without opening anything.</p>
       </div>
 
       <!-- Row 2 & 3: 1 (row-2) + 2 // then 1 + 1 -->
       <div class="feat-card row-2 featured-feat">
         <span class="feat-icon">🍅</span>
-        <h3>Focus Timer<span class="badge badge-pro">Pro</span></h3>
-        <p>Built-in Pomodoro with configurable work, short-break, and long-break phases. Detects calendar conflicts before you start - no surprise interruptions mid-session.</p>
+        <h3>Focus that respects your calendar<span class="badge badge-pro">Pro</span></h3>
+        <p>A built-in Pomodoro timer that checks your schedule before each session — so a 25-minute focus block never collides with a meeting you forgot about.</p>
         <div style="margin-top: 1rem; opacity: 0.4; font-size: 2rem;">⏳</div>
       </div>
 
       <div class="feat-card col-2">
         <span class="feat-icon">✍️</span>
-        <h3>Natural Language Input<span class="badge badge-pro">Pro</span></h3>
-        <p>Type <em>"lunch with Sarah tomorrow at noon"</em> and Daybar parses the date, time, and title instantly - then writes the event back to your connected calendar.</p>
+        <h3>Schedule in plain English<span class="badge badge-pro">Pro</span></h3>
+        <p>Type <em>"lunch with Sarah tomorrow at noon"</em> and watch the date, time, and title parse live as you type — then the event lands straight on your connected calendar.</p>
       </div>
 
       <div class="feat-card">
@@ -805,8 +813,8 @@
       <!-- Row 4: 2 + 1 -->
       <div class="feat-card col-2">
         <span class="feat-icon">🔗</span>
-        <h3>Meeting Link Detection<span class="badge badge-pro">Pro</span></h3>
-        <p>Daybar auto-detects links from 26 platforms including Zoom, Google Meet, Teams, Whereby, Jitsi, Webex, Around, Loom, and more - one shortcut away from joining.</p>
+        <h3>One-tap meeting join<span class="badge badge-pro">Pro</span></h3>
+        <p>Stop digging through invite notes. Daybar finds the join link in any event — Zoom, Google Meet, Teams, Webex, Whereby, Jitsi, and 20 more platforms — and puts it one shortcut away.</p>
       </div>
 
       <div class="feat-card">
@@ -828,8 +836,8 @@
 
       <div class="feat-card">
         <span class="feat-icon">🔔</span>
-        <h3>Daily Agenda<span class="badge badge-pro">Pro</span></h3>
-        <p>An 8 AM notification summarizes your day's meetings and tasks before you even open your laptop.</p>
+        <h3>Know your day before it starts<span class="badge badge-pro">Pro</span></h3>
+        <p>One 8 AM notification — "3 meetings, 2 tasks" — so your morning starts with a plan, not an inbox.</p>
       </div>
 
       <!-- Row 6: 2 + 1 -->
@@ -1011,7 +1019,7 @@
     <div class="text-center">
       <span class="section-eyebrow">Pricing</span>
       <h2 class="section-title">Simple, honest pricing</h2>
-      <p class="section-sub">Buy once. Use forever. No subscriptions, no renewals, no gotchas.</p>
+      <p class="section-sub">Everything a $40/year calendar app does — for $14.99, once. No subscriptions, no renewals, no gotchas.</p>
     </div>
 
     <div class="pricing-grid">
@@ -1062,7 +1070,7 @@
         </ul>
         <a href="https://daybar.lemonsqueezy.com/checkout/buy/a3356c2e-e712-4cae-8d3f-73c0c8dee60a"
            class="btn btn-primary"
-           data-umami-event="pricing-get-pro">Get Pro - $14.99</a>
+           data-umami-event="pricing-get-pro">Get Pro — $14.99</a>
       </div>
 
     </div>
@@ -1093,7 +1101,7 @@
 
       <div class="faq-item">
         <button class="faq-q">How does Google Calendar and Outlook sync work?<span class="faq-arrow">▾</span></button>
-        <div class="faq-a"><div class="faq-a-inner">Both use OAuth 2.0 - you authenticate via a browser window and Daybar stores your refresh token in your <strong>macOS Keychain</strong> using Electron's <code>safeStorage</code> API. Your credentials never leave your Mac. You can connect multiple accounts and revoke them at any time from Settings.</div></div>
+        <div class="faq-a"><div class="faq-a-inner">Both use OAuth 2.0 — you authenticate via a browser window and Daybar stores your refresh token encrypted on your device using Electron's <code>safeStorage</code> API (macOS Keychain / Windows DPAPI). Your credentials never leave your computer. You can connect multiple accounts and revoke them at any time from Settings.</div></div>
       </div>
 
       <div class="faq-item">
@@ -1103,7 +1111,7 @@
 
       <div class="faq-item">
         <button class="faq-q">What are the system requirements?<span class="faq-arrow">▾</span></button>
-        <div class="faq-a"><div class="faq-a-inner">Daybar requires <strong>macOS 12 Monterey or later</strong> and an <strong>Apple Silicon Mac (M1 or later)</strong>. The current release is ARM64 only - there is no Intel build at this time. If you're on an Intel Mac, stay tuned for a future release.</div></div>
+        <div class="faq-a"><div class="faq-a-inner">On Mac: <strong>macOS 12 Monterey or later</strong>, with native builds for both <strong>Apple Silicon</strong> and <strong>Intel</strong>. On PC: <strong>Windows 10 or later</strong> (64-bit). The download button detects your platform and architecture automatically.</div></div>
       </div>
 
       <div class="faq-item">
@@ -1114,6 +1122,11 @@
       <div class="faq-item">
         <button class="faq-q">Can I connect multiple Google accounts?<span class="faq-arrow">▾</span></button>
         <div class="faq-a"><div class="faq-a-inner">Yes - Pro supports multiple Google accounts, each with their own color. You can add, remove, and toggle individual accounts and calendars from the Settings panel. Events from all connected accounts appear together in the unified timeline.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">What's different on Windows?<span class="faq-arrow">▾</span></button>
+        <div class="faq-a"><div class="faq-a-inner">The Windows build (currently in beta) includes calendar sync (Google &amp; Outlook), tasks, the Pomodoro timer, world clocks, themes, and the floating widget. Two Apple-specific features stay macOS-only: <strong>iCloud Calendar &amp; Reminders</strong> and <strong>mouse jiggle</strong> — they rely on system APIs Windows doesn't have.</div></div>
       </div>
 
       <div class="faq-item">
@@ -1131,7 +1144,7 @@
 <section class="cta-sec divider">
   <div class="page">
     <h2>Ready to reclaim your menu bar?</h2>
-    <p>Download free and see your whole day in one click. Upgrade to Pro whenever you're ready.</p>
+    <p>Free to start, 7-day Pro trial included — no account, no credit card. Yours forever for $14.99.</p>
     <div class="cta-btns">
       <a href="/thank-you.html?dmg=/download/arm64"
          class="btn btn-secondary btn-lg"
@@ -1139,7 +1152,7 @@
          data-umami-event-arch="arm64">Download Free</a>
       <a href="https://daybar.lemonsqueezy.com/checkout/buy/a3356c2e-e712-4cae-8d3f-73c0c8dee60a"
          class="btn btn-primary btn-lg"
-         data-umami-event="cta-get-pro">Get Pro - $14.99</a>
+         data-umami-event="cta-get-pro">Get Pro — $14.99</a>
     </div>
     <p class="cta-note" id="cta-platform-note">Apple Silicon &amp; Intel Mac &nbsp;·&nbsp; macOS 12+ &nbsp;·&nbsp; Instant download</p>
   </div>

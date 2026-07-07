@@ -4,6 +4,13 @@ All notable changes to Daybar are documented here.
 
 ---
 
+## [1.3.1] — 2026-07-07
+
+### Fixed
+- **Pro accounts mislabeled as "trial" after restarting the app** — activated Pro accounts could show a "Pro trial — 7 days left" banner instead of the Pro badge after a full app restart (e.g. after rebooting the computer). Your license was never actually lost — a startup check now correctly recognizes an already-activated Pro account before it decides whether to start a new trial.
+
+---
+
 ## [1.1.11] — 2026-06-03
 
 ### Added
