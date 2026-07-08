@@ -4,6 +4,22 @@ All notable changes to Daybar are documented here.
 
 ---
 
+## [1.3.4] — 2026-07-08
+
+### Fixed
+- **Local tasks now survive app restarts** — quick-added tasks and events were held only in memory and silently lost when the app quit. They are now persisted locally and restored on launch (completion state included); the floating widget also picks them up live.
+- Free/Pro feature lists on the website and README now match the app exactly (Pomodoro and iCloud Calendar are Pro; the README previously listed Pomodoro as free).
+- README roadmap no longer lists features that shipped long ago (NL event creation, multi-account Google, tray countdown, daily agenda, mini week view, world clock editing).
+- Documented keyboard shortcuts corrected to the real bindings: ⌘⇧D (toggle), ⌘⇧M (join meeting), ⌘⇧E (new event).
+
+### Added
+- **Analytics opt-out** — new "Share anonymous usage stats" toggle in Settings → General → Privacy. The choice is stored in the app's data folder and honored from startup, before any event is sent.
+
+### Changed
+- Privacy Policy (app + website) now accurately discloses the anonymous PostHog usage analytics introduced in v1.1.2, including exactly what is and isn't collected and how to opt out. Previous "no telemetry" wording was stale.
+
+---
+
 ## [1.3.3] — 2026-07-07
 
 ### Fixed
@@ -22,6 +38,24 @@ All notable changes to Daybar are documented here.
 
 ### Fixed
 - **Pro accounts mislabeled as "trial" after restarting the app** — activated Pro accounts could show a "Pro trial — 7 days left" banner instead of the Pro badge after a full app restart (e.g. after rebooting the computer). Your license was never actually lost — a startup check now correctly recognizes an already-activated Pro account before it decides whether to start a new trial.
+
+### Performance
+*(documented retroactively — this pass shipped in 1.3.1 but was missing from the changelog)*
+- Cached Pro status to avoid Keychain reads on every tray tick
+- 60s debounce on popup-open calendar fetch; background refresh interval extended from 3 to 10 minutes
+- In-memory cache for the disabled-calendars list (eliminates sync disk I/O)
+- CalendarPanel memoized — no longer re-renders on clock ticks
+- Floating widget split into its own build entry so it loads a minimal bundle instead of the full app
+
+### Changed
+- Refund flow now shows a "Refund processed ✓" confirmation and a clearer error when the license key is missing
+- Website homepage redesigned (light theme)
+
+---
+
+## [1.3.0] — 2026-06-03
+
+Version realignment release — the version number jumped from 1.1.11 directly to 1.3.0 (there were no public 1.2.x releases; internal performance work labeled "1.2.0" shipped in 1.3.1). No user-facing changes in this release.
 
 ---
 

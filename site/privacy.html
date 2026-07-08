@@ -163,7 +163,7 @@
 <div class="hero">
   <div class="hero-tag">Legal</div>
   <h1>Privacy Policy</h1>
-  <p class="hero-meta">Effective date: March 21, 2026 &nbsp;&middot;&nbsp; Last updated: March 21, 2026</p>
+  <p class="hero-meta">Effective date: March 21, 2026 &nbsp;&middot;&nbsp; Last updated: July 8, 2026</p>
 </div>
 
 <div class="content">
@@ -181,7 +181,7 @@
       <li><a href="#s3">What We Do Not Collect</a></li>
       <li><a href="#s4">Calendar Integrations</a></li>
       <li><a href="#s5">License and Purchases</a></li>
-      <li><a href="#s6">Website Analytics</a></li>
+      <li><a href="#s6">Analytics (App &amp; Website)</a></li>
       <li><a href="#s7">Data Storage and Security</a></li>
       <li><a href="#s8">Third-Party Services</a></li>
       <li><a href="#s9">Children's Privacy</a></li>
@@ -247,6 +247,12 @@
           <td class="tag-no">Never</td>
         </tr>
         <tr>
+          <td>App usage analytics (feature events only, opt-out)</td>
+          <td class="tag-yes">Anonymized</td>
+          <td>PostHog (US-hosted)</td>
+          <td class="tag-no">Never</td>
+        </tr>
+        <tr>
           <td>Website visit analytics</td>
           <td class="tag-yes">Anonymized</td>
           <td>Umami Cloud (EU-hosted)</td>
@@ -265,8 +271,9 @@
       <li>Your tasks or to-do items</li>
       <li>Your location or IP address via the app</li>
       <li>Device identifiers, advertising IDs, or fingerprints</li>
-      <li>Usage telemetry or crash reports (we plan to add opt-in crash reporting in a future version)</li>
+      <li>Crash reports</li>
     </ul>
+    <p>The app does send <strong>anonymous, install-level usage statistics</strong> — which features are used, never calendar content. See <a href="#s6">Analytics</a> for exactly what is collected and how to opt out.</p>
     <p>There is no Daybar server that receives your calendar data. The app communicates directly from your Mac to Google, Microsoft, or Apple servers using your credentials.</p>
   </section>
 
@@ -289,8 +296,15 @@
   </section>
 
   <section id="s6">
-    <h2><span class="num">6</span> Website Analytics</h2>
-    <p>Our marketing website (<a href="https://daybar.app">daybar.app</a>) uses <strong>Umami Analytics</strong>, a privacy-focused, open-source analytics platform.</p>
+    <h2><span class="num">6</span> Analytics (App &amp; Website)</h2>
+    <p><strong>App analytics:</strong> Daybar sends anonymous, install-level usage statistics to <strong>PostHog</strong> so we can understand which features are used and improve the product.</p>
+    <ul>
+      <li><strong>What is sent:</strong> feature-usage events (e.g. app launched, calendar connected, Pomodoro started, widget toggled), the app version, and the OS platform</li>
+      <li><strong>What is never sent:</strong> calendar events, event titles, attendees, task text, account emails, or any other personal or calendar content</li>
+      <li><strong>Identity:</strong> events are tied to a random UUID generated on first launch — it cannot be linked to you, your hardware, or your accounts</li>
+      <li><strong>Opt-out:</strong> disable <em>Settings → General → Privacy → "Share anonymous usage stats"</em> in the app at any time; the choice takes effect immediately and is honored at every startup</li>
+    </ul>
+    <p><strong>Website analytics:</strong> our marketing website (<a href="https://daybar.app">daybar.app</a>) uses <strong>Umami Analytics</strong>, a privacy-focused, open-source analytics platform.</p>
     <ul>
       <li><strong>No cookies</strong> are set</li>
       <li><strong>No personal data</strong> is collected</li>
@@ -320,6 +334,7 @@
       <li><a href="https://privacy.microsoft.com/" target="_blank" rel="noopener">Microsoft Privacy Statement</a> - Microsoft Graph / Outlook Calendar</li>
       <li><a href="https://www.apple.com/privacy/" target="_blank" rel="noopener">Apple Privacy Policy</a> - Apple Calendar / iCloud</li>
       <li><a href="https://www.lemonsqueezy.com/privacy" target="_blank" rel="noopener">Lemon Squeezy Privacy Policy</a> - Payment processing</li>
+      <li><a href="https://posthog.com/privacy" target="_blank" rel="noopener">PostHog Privacy Policy</a> - Anonymous app usage analytics</li>
       <li><a href="https://umami.is/privacy" target="_blank" rel="noopener">Umami Privacy Policy</a> - Website analytics</li>
     </ul>
   </section>
@@ -336,7 +351,7 @@
     <ul>
       <li><strong>Right to access</strong> - email <a href="mailto:support@daybar.app">support@daybar.app</a> and we will provide any information we hold about your purchase</li>
       <li><strong>Right to deletion</strong> - we will delete your purchase record and deactivate your license upon request. Note: Lemon Squeezy retains transaction records as required by law.</li>
-      <li><strong>Right to opt out</strong> - website analytics can be opted out of by enabling "Do Not Track" in your browser. Umami respects this signal.</li>
+      <li><strong>Right to opt out</strong> - app usage analytics can be disabled in Settings → General → Privacy; website analytics can be opted out of by enabling "Do Not Track" in your browser. Umami respects this signal.</li>
     </ul>
     <p>To exercise any rights, contact us at <a href="mailto:support@daybar.app">support@daybar.app</a>. We will respond within 30 days.</p>
   </section>

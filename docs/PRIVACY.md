@@ -1,12 +1,12 @@
 # Daybar Privacy Policy
 
-**Last updated: April 8, 2026**
+**Last updated: July 8, 2026**
 
 ## 1. Overview
 
 Daybar ("the app", "we") is a macOS menu bar application for calendar and task management. This policy explains what data the app accesses, how it is stored, and what is transmitted to third parties.
 
-**Short version:** Daybar stores everything on your device. No personal data is sent to Daybar servers. Calendar events, reminders, and account credentials never leave your Mac.
+**Short version:** Daybar stores everything on your device. No personal data is sent to Daybar servers. Calendar events, reminders, and account credentials never leave your Mac. The app sends anonymous, install-level usage statistics (e.g. "a Pomodoro session was started") to help us improve the product — this never includes calendar content and can be disabled in **Settings → General → Privacy**.
 
 ---
 
@@ -87,8 +87,18 @@ Daybar communicates with the following external services:
 | LemonSqueezy License API (`api.lemonsqueezy.com`) | License activation and validation | License key, instance ID, product ID | https://www.lemonsqueezy.com/privacy |
 | Daybar Netlify Function (`daybar.app`) | Refund processing | License key, product ID | (Operated by Daybar) |
 | GitHub Releases (`github.com`) | Auto-update checks | App version, OS version | https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement |
+| PostHog (`us.i.posthog.com`) | Anonymous usage analytics (see 5.1) | Anonymous install ID, feature-usage events, app version, OS platform | https://posthog.com/privacy |
 
-**Daybar does not use analytics, crash reporting, or advertising SDKs of any kind.**
+**Daybar does not use crash reporting or advertising SDKs of any kind.**
+
+### 5.1 Usage Analytics (opt-out)
+
+Daybar collects **anonymous, install-level usage statistics** via PostHog to understand which features are used and improve the product:
+
+- **What is sent:** feature-usage events (e.g. app launched, calendar connected, Pomodoro started, widget toggled, tray style changed), the app version, and the OS platform.
+- **What is never sent:** calendar events, event titles, attendees, task text, account emails, names, or any other personal or calendar content.
+- **Identity:** events are tied to a random UUID generated on first launch (`analytics-id.txt` in the app's data folder). It is not derived from — and cannot be linked to — your identity, hardware, or accounts.
+- **Opt-out:** turn off **Settings → General → Privacy → "Share anonymous usage stats"** at any time. The choice is stored locally and honored from the moment the app starts, before any event is sent.
 
 ---
 
