@@ -4,6 +4,19 @@ All notable changes to Daybar are documented here.
 
 ---
 
+## [1.3.5] — 2026-10-26
+
+### Fixed
+- **Google Calendar wrongly showed "Connect Google Calendar" for an already-connected account** — a transient sync hiccup (e.g. a brief network blip) was treated the same as an actually-expired token, incorrectly flipping the account to "disconnected" in the UI even though it was still fully connected server-side. Only a genuinely expired/revoked token now clears the connection.
+- **Settings could show a stale, already-removed Google/Microsoft account** after its token expired in the background — the account list wasn't refreshed when a background sync detected expiry, only when the user manually reopened Settings or triggered another account action.
+- Pro/license status could drift out of sync between windows (e.g. the Settings window showing stale Pro status after a license was revoked or reactivated elsewhere) — the main process now pushes status changes to every open window immediately.
+
+### Performance
+- Reopening the menu bar popup is now faster.
+- Reduced unnecessary re-rendering and background work while idle.
+
+---
+
 ## [1.3.4] — 2026-07-08
 
 ### Fixed
